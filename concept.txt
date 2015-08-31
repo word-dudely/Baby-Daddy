@@ -4,18 +4,25 @@ time management
 
 must be a good daddy to win day/earn game currency
 "Good Daddy's manage their time"
+
 Daddy list (changes with kid growth/day progession)
 starts with:
-change diapers (on 2 hrs cycle, 1 daddyPoints)
+change diapers (2 hrs, 1 daddyPoints)
 wake up Mommy for breast feeding (3 hrs, 2 daddyPoints)
-Bottle feeding (limited by numBottles, 3 hrs, 1 daddyPoints)
+Bottle feeding (limited by numBottles, 3 hrs, 3 daddyPoints)
 Bottle prepairing (limited by numBottlesMax, 60 sec, 1 daddyPoints)
 Pumping Mommy (limited by numBottles and numBottlesMax, 10 mins, 2 daddyPoints)
 First level adds:
-washing baby (1 hrs, 2 daddyPoints) 
+washing baby (1 hrs, 2 daddyPoints)
 show baby things (30 mins, 2 daddyPoints)
 Second level adds:
+feed the dog (4 hrs, 1 daddyPoint)
+exercise the dog (2 hrs, 2 daddyPoints)
 Third level adds:
+wash the dog (4 hrs, 3 daddyPoints)
+do the dishes ()
 Fourth level adds:
+clean the house (4 hrs, 4 daddyPoints)
+wash clothes (3 hrs, 3 daddyPoints)
 Fifth level adds:
-Going to work (8 hrs, 
+Going to work (8 hrs, 4 daddyPoints)
