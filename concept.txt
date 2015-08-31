@@ -1,6 +1,6 @@
 Concept
 
-time management
+time management, will be using python 3/pygame. Free to download.
 
 must be a good daddy to win day/earn game currency
 "Good Daddy's manage their time"
