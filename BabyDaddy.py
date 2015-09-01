@@ -3,6 +3,7 @@ import pygame, codecs, math, sys
 from pygame.locals import *
 
 screen = pygame.display.set_mode((1000,800))
+pygame.display.set_icon(pygame.image.load('images/iconBaby.png'))
 pygame.display.set_caption('Baby Daddy')
 clock = pygame.time.Clock()
 BLACK = (0,0,0)
