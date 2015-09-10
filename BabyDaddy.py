@@ -24,7 +24,13 @@ def main():
     numDP=0
     #Level
     numLVL=0
-    
+    globalMusicVolume=0.0
+
+    def changeMusic(newTrack, volume=globalMusicVolume):
+        pygame.mixer.music.load('audio/'+newTrack)
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(volume)
+        
     #display menu
     screen.blit(background, (0,0))
     logo = pygame.image.load('images/logo.png').convert_alpha()
@@ -38,13 +44,7 @@ def main():
     startBtn_rect = startBtn_rect.move(0, background_rect.bottom-100)
     screen.blit(startBtn, startBtn_rect)
     pygame.display.flip()
-    pygame.mixer.music.load('audio/babyDaddyHookRepeat.ogg')
-    pygame.mixer.music.play(-1)
-    
-    def changeMusic(newTrack):
-        pygame.mixer.music.load('audio/'+newTrack)
-        pygame.mixer.music.play(-1)
-    
+    changeMusic('babyDaddyHookRepeat.ogg')
 
     while MENU:
         for event in pygame.event.get():
@@ -80,6 +80,5 @@ def main():
                 sys.exit(0)
             if not hasattr(event, 'key'): continue
             if event.key == K_ESCAPE: sys.exit(0)
-            
             
 if __name__ == '__main__': main()
