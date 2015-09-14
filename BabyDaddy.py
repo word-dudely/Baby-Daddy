@@ -3,6 +3,7 @@ import pygame, codecs, math, sys, time
 from pygame.locals import *
 from Daddy import *
 from Constants import *
+from DynamicTexts import *
 
 def main():
     #window stuff
@@ -53,12 +54,13 @@ def main():
         pygame.display.flip()
         pygame.mixer.music.fadeout(50)
         changeMusic('babyDaddyMainLoop.wav')
+        #HUD
         font = pygame.font.Font('fonts/arialbd.ttf', 18)
-        textDP = font.render("Daddy Points: "+str(numDP), True, BLACK, WHITE)
+        textDP = font.render(DADDY_POINTS_LABEL+str(numDP), True, BLACK, WHITE)
         textDP_rect = textDP.get_rect()
-        textDP_rect.bottomleft = background_rect.bottomleft
+        textDP_rect.midtop = background_rect.midtop
         screen.blit(textDP, textDP_rect)
-        textLVL = font.render("Level: "+str(numLVL), True, BLACK, WHITE)
+        textLVL = font.render(LEVEL_LABEL+str(numLVL), True, BLACK, WHITE)
         textLVL_rect = textLVL.get_rect()
         textLVL_rect.topleft = background_rect.topleft
         screen.blit(textLVL, textLVL_rect)
