@@ -31,11 +31,11 @@ def main():
     startBtn = pygame.image.load('images/startBtn.png').convert_alpha()
     startBtn_rect = startBtn.get_rect()
     startBtn_rect.midbottom = background_rect.midbottom
-    startBtn_rect = startBtn_rect.move(0,-10)
+    startBtn_rect = startBtn_rect.move(-150,-10)
     exitBtn = pygame.image.load('images/exitBtn.png').convert_alpha()
     exitBtn_rect = exitBtn.get_rect()
-    exitBtn_rect.bottomleft=background_rect.bottomleft
-    exitBtn_rect = exitBtn_rect.move(+5,-10)
+    exitBtn_rect.midbottom=background_rect.midbottom
+    exitBtn_rect = exitBtn_rect.move(+150,-10)
 
     def changeMusic(newTrack, volume=GLOBAL_MUSIC_VOLUME):
         pygame.mixer.music.load('audio/'+newTrack)
@@ -49,8 +49,8 @@ def main():
         screen.blit(background, (0,0))
         logo = pygame.image.load('images/logo.png').convert_alpha()
         logo_rect = logo.get_rect()
-        logo_rect.centerx = background_rect.centerx
-        logo_rect=logo_rect.move(0,background_rect.top+100)
+        logo_rect.midtop = background_rect.midtop
+        logo_rect=logo_rect.move(0,+25)
         screen.blit(logo, logo_rect)
         screen.blit(startBtn, startBtn_rect)
         screen.blit(exitBtn, exitBtn_rect)
@@ -105,11 +105,13 @@ def main():
                 if startBtn_rect.collidepoint(x,y) & MENU:
                     startGame()
                     MENU=False
+                if exitBtn_rect.collidepoint(x,y) & MENU:
+                    sys.exit(0)
                 if daddy.rect.collidepoint(x,y):
                     print("Daddy!")
             if event.type == KEYDOWN:
                 if ((event.key == K_ESCAPE) & (MENU==False)): 
-                    createMenu(startBtn, startBtn_rect)
+                    createMenu(startBtn, startBtn_rect, exitBtn, exitBtn_rect)
                     MENU=True
         
 
