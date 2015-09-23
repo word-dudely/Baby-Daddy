@@ -14,7 +14,7 @@ class Daddy(pygame.sprite.Sprite):
         pygame.init()
         pygame.sprite.Sprite.__init__(self)
         
-        self.speed = 2
+        self.speed = 8
         self.image = pygame.image.load('images/daddy.png')
         self.rect = self.image.get_rect()
         

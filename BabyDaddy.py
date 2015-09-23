@@ -15,7 +15,7 @@ def main():
     else:screen = pygame.display.set_mode(SCREEN_SIZE, FULLSCREEN)
     pygame.display.set_icon(pygame.image.load(ICON))
     pygame.display.set_caption(TITLE_BAR_TEXT)
-    pygame.key.set_repeat(5,5)
+    pygame.key.set_repeat(25,25)
 
     clock = pygame.time.Clock()
     clock.tick(30)
@@ -50,40 +50,13 @@ def main():
         pygame.display.flip()
         changeMusic('babyDaddyHookRepeat.ogg')
         
-    def startGame(numDP=0, numLVL=0):
+    def startGame():
         gameState=GAME_ON
-        #scene = pygame.Surface(SCREEN_SIZE)
         gameSprite=pygame.sprite.RenderPlain(game)
         gameSprite.draw(background)
         screen.blit(background, (0,0))
         pygame.mixer.music.fadeout(50)
         changeMusic('babyDaddyMainLoop.wav')
-        #HUD
-        HUD=pygame.Surface((SCREEN_WIDTH, 25))
-        HUD_rect=HUD.get_rect()
-        HUD_shadow=pygame.Surface((SCREEN_WIDTH, HUD_rect.height+2))
-        HUD_shadow.set_alpha(75)
-        HUD_shadow_rect=HUD_shadow.get_rect()
-        pygame.draw.rect(HUD_shadow, BLACK, (0,0,SCREEN_WIDTH,HUD_shadow_rect.height), 0)
-        pygame.draw.rect(HUD, WHITE, (0,0,SCREEN_WIDTH,HUD_rect.height), 0)
-        screen.blit(HUD_shadow, HUD_shadow_rect)
-        screen.blit(HUD, HUD_rect)
-        font = pygame.font.Font('fonts/arialbd.ttf', 18)
-        textDP = font.render(DADDY_POINTS_LABEL+str(numDP), True, BLACK, WHITE)
-        textDP_rect = textDP.get_rect()
-        textDP_rect.midtop = game.rect.midtop
-        textDP_rect=textDP_rect.move(0,+2)
-        screen.blit(textDP, textDP_rect)
-        textLVL = font.render(LEVEL_LABEL+str(numLVL), True, BLACK, WHITE)
-        textLVL_rect = textLVL.get_rect()
-        textLVL_rect.topleft = game.rect.topleft
-        textLVL_rect=textLVL_rect.move(+2,+2)
-        screen.blit(textLVL, textLVL_rect)
-        textTIMER = font.render(TIMER_LABEL, True, BLACK, WHITE)
-        textTIMER_rect = textTIMER.get_rect()
-        textTIMER_rect.topright = game.rect.topright
-        textTIMER_rect=textTIMER_rect.move(-2,+2)
-        screen.blit(textTIMER, textTIMER_rect)
         pygame.display.flip()
         
         
