@@ -1,3 +1,4 @@
+# -** coding: utf-8 -*-
 #GUI
 TITLE_BAR_TEXT='Baby Daddy'
 DADDY_POINTS_LABEL='Daddy Points: '
