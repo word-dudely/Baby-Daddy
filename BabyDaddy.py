@@ -4,7 +4,7 @@ from Daddy import *
 from Constants import *
 from DynamicTexts import *
 from MainMenu import *
-#from GameScene import *
+from GameScene import *
 
 global gameState, daddyState
 
@@ -15,7 +15,7 @@ def main():
     else:screen = pygame.display.set_mode(SCREEN_SIZE, FULLSCREEN)
     pygame.display.set_icon(pygame.image.load(ICON))
     pygame.display.set_caption(TITLE_BAR_TEXT)
-    pygame.key.set_repeat(1,5)
+    pygame.key.set_repeat(5,5)
 
     clock = pygame.time.Clock()
     clock.tick(30)
@@ -24,12 +24,13 @@ def main():
     background = background.convert()
     background.fill(WHITE)
     background_rect = background.get_rect()
-    
+    #prime the states
     gameState=MAIN_MENU
     daddyState=STAND
     #birth my sprites
-    daddy=Daddy()
+    #daddy=Daddy()
     menu=MainMenu()
+    game=GameScene()
     
 
     def changeMusic(newTrack, volume=GLOBAL_MUSIC_VOLUME):
@@ -41,22 +42,20 @@ def main():
         
     def createMenu():
         gameState=MAIN_MENU
+        menuBG=pygame.Surface(SCREEN_SIZE)
         menuSprite=pygame.sprite.RenderPlain(menu)
-        menuSprite.draw(background)
-        screen.blit(background, (0,0))
+        menuSprite.draw(menuBG)
+        screen.blit(menuBG, (0,0))
         pygame.mixer.music.fadeout(50)
         pygame.display.flip()
         changeMusic('babyDaddyHookRepeat.ogg')
         
-    def startGame(daddy, numDP=0, numLVL=0):
+    def startGame(numDP=0, numLVL=0):
         gameState=GAME_ON
-        scene = pygame.Surface(screen.get_size())
-        scene = scene.convert()
-        scene.fill(WHITE)
-        scene_rect = scene.get_rect()
-        daddySprite=pygame.sprite.RenderPlain(daddy)
-        daddySprite.draw(scene)
-        screen.blit(scene, (0,25))
+        #scene = pygame.Surface(SCREEN_SIZE)
+        gameSprite=pygame.sprite.RenderPlain(game)
+        gameSprite.draw(background)
+        screen.blit(background, (0,0))
         pygame.mixer.music.fadeout(50)
         changeMusic('babyDaddyMainLoop.wav')
         #HUD
@@ -72,17 +71,17 @@ def main():
         font = pygame.font.Font('fonts/arialbd.ttf', 18)
         textDP = font.render(DADDY_POINTS_LABEL+str(numDP), True, BLACK, WHITE)
         textDP_rect = textDP.get_rect()
-        textDP_rect.midtop = scene_rect.midtop
+        textDP_rect.midtop = game.rect.midtop
         textDP_rect=textDP_rect.move(0,+2)
         screen.blit(textDP, textDP_rect)
         textLVL = font.render(LEVEL_LABEL+str(numLVL), True, BLACK, WHITE)
         textLVL_rect = textLVL.get_rect()
-        textLVL_rect.topleft = scene_rect.topleft
+        textLVL_rect.topleft = game.rect.topleft
         textLVL_rect=textLVL_rect.move(+2,+2)
         screen.blit(textLVL, textLVL_rect)
         textTIMER = font.render(TIMER_LABEL, True, BLACK, WHITE)
         textTIMER_rect = textTIMER.get_rect()
-        textTIMER_rect.topright = scene_rect.topright
+        textTIMER_rect.topright = game.rect.topright
         textTIMER_rect=textTIMER_rect.move(-2,+2)
         screen.blit(textTIMER, textTIMER_rect)
         pygame.display.flip()
@@ -100,13 +99,13 @@ def main():
             if ((event.type == MOUSEBUTTONDOWN) & (gameState==MAIN_MENU)):
                 x,y = event.pos
                 if menu.startBtn_rect.collidepoint(x,y):
-                    startGame(daddy)
+                    startGame()
                     gameState=GAME_ON
                 if menu.exitBtn_rect.collidepoint(x,y):
                     sys.exit(0)
             if ((event.type == MOUSEBUTTONDOWN) & (gameState==GAME_ON)):
                 x,y = event.pos
-                if daddy.rect.collidepoint(x,y):
+                if game.daddy.rect.collidepoint(x,y):
                     print("Daddy!")
             if ((event.type == KEYDOWN) & (gameState==GAME_ON)):
                 if event.key == K_RIGHT:
@@ -117,10 +116,11 @@ def main():
                     daddyState = WALK_W
                 if event.key == K_UP:
                     daddyState = WALK_N
-                daddy.moveDaddy(daddyState)
-                daddySprite=pygame.sprite.RenderPlain(daddy)
-                daddySprite.draw(background)
-                screen.blit(background, (0,25))
+                game.daddy.moveDaddy(daddyState)
+                game.update()
+                gameSprite=pygame.sprite.RenderPlain(game)
+                gameSprite.draw(background)
+                screen.blit(background, (0,0))
                 pygame.display.flip()
             if ((event.type == KEYUP) & (gameState==GAME_ON)):
                 if event.key == K_ESCAPE: 
@@ -128,7 +128,7 @@ def main():
                     gameState=MAIN_MENU
                 else:
                     daddyState = STAND
-                    daddy.moveDaddy(daddyState)
+                    game.daddy.moveDaddy(daddyState)
         
 
             
