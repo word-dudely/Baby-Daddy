@@ -3,6 +3,8 @@ from pygame.locals import *
 from Daddy import *
 from Constants import *
 from DynamicTexts import *
+from MainMenu import *
+#from GameScene import *
 
 global gameState, daddyState
 
@@ -17,6 +19,7 @@ def main():
 
     clock = pygame.time.Clock()
     clock.tick(30)
+    
     background = pygame.Surface(screen.get_size())
     background = background.convert()
     background.fill(WHITE)
@@ -24,18 +27,10 @@ def main():
     
     gameState=MAIN_MENU
     daddyState=STAND
-    #birth my daddy
+    #birth my sprites
     daddy=Daddy()
+    menu=MainMenu()
     
-    #temp button fix, thinking of separating the menu and game scenes into individual classes
-    startBtn = pygame.image.load('images/startBtn.png').convert_alpha()
-    startBtn_rect = startBtn.get_rect()
-    startBtn_rect.midbottom = background_rect.midbottom
-    startBtn_rect = startBtn_rect.move(-150,-10)
-    exitBtn = pygame.image.load('images/exitBtn.png').convert_alpha()
-    exitBtn_rect = exitBtn.get_rect()
-    exitBtn_rect.midbottom = background_rect.midbottom
-    exitBtn_rect = exitBtn_rect.move(+150,-10)
 
     def changeMusic(newTrack, volume=GLOBAL_MUSIC_VOLUME):
         pygame.mixer.music.load('audio/'+newTrack)
@@ -44,21 +39,12 @@ def main():
         else:pygame.mixer.music.set_volume(0)
         
         
-    def createMenu(startBtn, startBtn_rect, exitBtn, exitBtn_rect):
+    def createMenu():
         gameState=MAIN_MENU
-        menuBG = pygame.Surface(screen.get_size())
-        menuBG = menuBG.convert()
-        menuBG.fill(PINK)
-        menuBG_rect=menuBG.get_rect()
+        menuSprite=pygame.sprite.RenderPlain(menu)
+        menuSprite.draw(background)
+        screen.blit(background, (0,0))
         pygame.mixer.music.fadeout(50)
-        screen.blit(menuBG, (0,0))
-        logo = pygame.image.load('images/logo.png').convert_alpha()
-        logo_rect = logo.get_rect()
-        logo_rect.midtop = menuBG_rect.midtop
-        logo_rect=logo_rect.move(0,+25)
-        screen.blit(logo, logo_rect)
-        screen.blit(startBtn, startBtn_rect)
-        screen.blit(exitBtn, exitBtn_rect)
         pygame.display.flip()
         changeMusic('babyDaddyHookRepeat.ogg')
         
@@ -104,7 +90,7 @@ def main():
         
         
     #display menu
-    createMenu(startBtn, startBtn_rect, exitBtn, exitBtn_rect)
+    createMenu()
     
     #state machine/infinite loop. This will get messy...
     while True:
@@ -113,10 +99,10 @@ def main():
                 sys.exit(0)
             if ((event.type == MOUSEBUTTONDOWN) & (gameState==MAIN_MENU)):
                 x,y = event.pos
-                if startBtn_rect.collidepoint(x,y):
+                if menu.startBtn_rect.collidepoint(x,y):
                     startGame(daddy)
                     gameState=GAME_ON
-                if exitBtn_rect.collidepoint(x,y):
+                if menu.exitBtn_rect.collidepoint(x,y):
                     sys.exit(0)
             if ((event.type == MOUSEBUTTONDOWN) & (gameState==GAME_ON)):
                 x,y = event.pos
@@ -138,7 +124,7 @@ def main():
                 pygame.display.flip()
             if ((event.type == KEYUP) & (gameState==GAME_ON)):
                 if event.key == K_ESCAPE: 
-                    createMenu(startBtn, startBtn_rect, exitBtn, exitBtn_rect)
+                    createMenu()
                     gameState=MAIN_MENU
                 else:
                     daddyState = STAND

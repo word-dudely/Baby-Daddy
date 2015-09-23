@@ -4,7 +4,7 @@ from Constants import *
 
 class Daddy(pygame.sprite.Sprite):
     """
-    The player's main guy. The Daddy. Clicking on objects will move him to them.
+    The player's main guy. The Daddy. Arrow keys move at the moment.
     Returns: daddy object
     Functions: moveDaddy
     Attributes: speed
