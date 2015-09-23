@@ -5,6 +5,8 @@ from Daddy import *
 from Constants import *
 from DynamicTexts import *
 
+global gameState, daddyState
+
 def main():
     #window stuff
     pygame.init()
@@ -20,12 +22,9 @@ def main():
     background.fill(WHITE)
     background_rect=background.get_rect()
     
-    #temp, need to setup state engine asap
-    MENU=True
+    gameState=MAIN_MENU
     
     daddy=Daddy()
-    daddySprite=pygame.sprite.RenderPlain(daddy)
-    daddySprite.draw(background)
     
     #temp button fix
     startBtn = pygame.image.load('images/startBtn.png').convert_alpha()
@@ -45,6 +44,8 @@ def main():
         
         
     def createMenu(startBtn, startBtn_rect, exitBtn, exitBtn_rect):
+        global gameState, daddyState
+        gameState=MAIN_MENU
         pygame.mixer.music.fadeout(50)
         screen.blit(background, (0,0))
         logo = pygame.image.load('images/logo.png').convert_alpha()
@@ -57,9 +58,12 @@ def main():
         pygame.display.flip()
         changeMusic('babyDaddyHookRepeat.ogg')
         
-    def startGame(numDP=0, numLVL=0):
+    def startGame(daddy, numDP=0, numLVL=0):
+        global gameState, daddyState
+        gameState=GAME_ON
+        daddySprite=pygame.sprite.RenderPlain(daddy)
+        daddySprite.draw(background)
         screen.blit(background, (0,0))
-        pygame.display.flip()
         pygame.mixer.music.fadeout(50)
         changeMusic('babyDaddyMainLoop.wav')
         #HUD
@@ -95,24 +99,26 @@ def main():
     #display menu
     createMenu(startBtn, startBtn_rect, exitBtn, exitBtn_rect)
     
-
+    #state machine/infinite loop. This will get messy...
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
                 sys.exit(0)
-            if event.type == MOUSEBUTTONDOWN:
+            if ((event.type == MOUSEBUTTONDOWN) & (gameState==MAIN_MENU)):
                 x,y = event.pos
-                if startBtn_rect.collidepoint(x,y) & MENU:
-                    startGame()
-                    MENU=False
-                if exitBtn_rect.collidepoint(x,y) & MENU:
+                if startBtn_rect.collidepoint(x,y):
+                    startGame(daddy)
+                    gameState=GAME_ON
+                if exitBtn_rect.collidepoint(x,y):
                     sys.exit(0)
+            if ((event.type == MOUSEBUTTONDOWN) & (gameState==GAME_ON)):
+                x,y = event.pos
                 if daddy.rect.collidepoint(x,y):
                     print("Daddy!")
-            if event.type == KEYDOWN:
-                if ((event.key == K_ESCAPE) & (MENU==False)): 
+            if ((event.type == KEYDOWN) & (gameState==GAME_ON)):
+                if event.key == K_ESCAPE: 
                     createMenu(startBtn, startBtn_rect, exitBtn, exitBtn_rect)
-                    MENU=True
+                    gameState=MAIN_MENU
         
 
             
