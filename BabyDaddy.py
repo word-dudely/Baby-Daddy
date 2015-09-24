@@ -15,7 +15,7 @@ def main():
     else:screen = pygame.display.set_mode(SCREEN_SIZE, FULLSCREEN)
     pygame.display.set_icon(pygame.image.load(ICON))
     pygame.display.set_caption(TITLE_BAR_TEXT)
-    pygame.key.set_repeat(25,25)
+    pygame.key.set_repeat(30,30)
 
     clock = pygame.time.Clock()
     clock.tick(30)
@@ -28,7 +28,6 @@ def main():
     gameState=MAIN_MENU
     daddyState=STAND
     #birth my sprites
-    #daddy=Daddy()
     menu=MainMenu()
     game=GameScene()
     
@@ -76,10 +75,10 @@ def main():
                     gameState=GAME_ON
                 if menu.exitBtn_rect.collidepoint(x,y):
                     sys.exit(0)
-            if ((event.type == MOUSEBUTTONDOWN) & (gameState==GAME_ON)):
-                x,y = event.pos
-                if game.daddy.rect.collidepoint(x,y):
-                    print("Daddy!")
+            #if ((event.type == MOUSEBUTTONDOWN) & (gameState==GAME_ON)):
+                #x,y = event.pos
+                #if game.daddy.rect.collidepoint(x,y):
+                    #print("Daddy!")
             if ((event.type == KEYDOWN) & (gameState==GAME_ON)):
                 if event.key == K_RIGHT:
                     daddyState = WALK_E
@@ -90,11 +89,6 @@ def main():
                 if event.key == K_UP:
                     daddyState = WALK_N
                 game.daddy.moveDaddy(daddyState)
-                game.update()
-                gameSprite=pygame.sprite.RenderPlain(game)
-                gameSprite.draw(background)
-                screen.blit(background, (0,0))
-                pygame.display.flip()
             if ((event.type == KEYUP) & (gameState==GAME_ON)):
                 if event.key == K_ESCAPE: 
                     createMenu()
@@ -102,6 +96,14 @@ def main():
                 else:
                     daddyState = STAND
                     game.daddy.moveDaddy(daddyState)
+        if gameState==GAME_ON:
+            game.numDP+=1
+            game.numLVL+=1
+            game.update()
+            gameSprite=pygame.sprite.RenderPlain(game)
+            gameSprite.draw(background)
+            screen.blit(background, (0,0))
+            pygame.display.flip()            
         
 
             

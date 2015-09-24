@@ -10,10 +10,13 @@ class GameScene(pygame.sprite.Sprite):
     Returns: game scene
     Functions: update
     """
-    def __init__(self, numDP=0, numLVL=0):
+    def __init__(self):
         #Call the parent class (Sprite) constructor
         pygame.init()
         pygame.sprite.Sprite.__init__(self)
+        
+        self.numDP=0
+        self.numLVL=0
         
         self.image = pygame.Surface(SCREEN_SIZE)
         self.image.fill(WHITE)
@@ -31,16 +34,16 @@ class GameScene(pygame.sprite.Sprite):
         self.HUD_shadow_rect=self.HUD_shadow.get_rect()
         pygame.draw.rect(self.HUD_shadow, BLACK, (0,0,SCREEN_WIDTH,self.HUD_shadow_rect.height), 0)
         pygame.draw.rect(self.HUD, WHITE, (0,0,SCREEN_WIDTH,self.HUD_rect.height), 0)
-        font = pygame.font.Font('fonts/arialbd.ttf', 18)
-        self.textDP = font.render(DADDY_POINTS_LABEL+str(numDP), True, BLACK, WHITE)
+        self.font = pygame.font.Font('fonts/arialbd.ttf', 18)
+        self.textDP = self.font.render(DADDY_POINTS_LABEL+str(self.numDP), True, BLACK, WHITE)
         self.textDP_rect = self.textDP.get_rect()
         self.textDP_rect.midtop = self.rect.midtop
         self.textDP_rect=self.textDP_rect.move(0,+2)
-        self.textLVL = font.render(LEVEL_LABEL+str(numLVL), True, BLACK, WHITE)
+        self.textLVL = self.font.render(LEVEL_LABEL+str(self.numLVL), True, BLACK, WHITE)
         self.textLVL_rect = self.textLVL.get_rect()
         self.textLVL_rect.topleft = self.rect.topleft
         self.textLVL_rect=self.textLVL_rect.move(+2,+2)
-        self.textTIMER = font.render(TIMER_LABEL, True, BLACK, WHITE)
+        self.textTIMER = self.font.render(TIMER_LABEL, True, BLACK, WHITE)
         self.textTIMER_rect = self.textTIMER.get_rect()
         self.textTIMER_rect.topright = self.rect.topright
         self.textTIMER_rect=self.textTIMER_rect.move(-2,+2)
@@ -52,6 +55,9 @@ class GameScene(pygame.sprite.Sprite):
 
 
     def update(self):
+        #update the HUD
+        self.textDP = self.font.render(DADDY_POINTS_LABEL+str(self.numDP), True, BLACK, WHITE)
+        self.textLVL = self.font.render(LEVEL_LABEL+str(self.numLVL), True, BLACK, WHITE)
         #redraw the scene
         self.image.fill(WHITE)
         self.daddySprite=pygame.sprite.RenderPlain(self.daddy)
