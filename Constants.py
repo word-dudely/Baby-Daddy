@@ -1,13 +1,7 @@
 #window
-<<<<<<< HEAD
-WINDOWED=False
-SCREEN_WIDTH=1000
-SCREEN_HEIGHT=600
-=======
 WINDOWED=True
 SCREEN_HEIGHT=600
 SCREEN_WIDTH=800
->>>>>>> origin/master
 SCREEN_SIZE=(SCREEN_WIDTH, SCREEN_HEIGHT)
 ICON='images/iconBaby.png'
 

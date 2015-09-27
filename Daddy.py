@@ -19,13 +19,13 @@ class Daddy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
     def moveDaddy(self, state):
-        if (state == WALK_E):
+        if ((state == WALK_E) & (self.rect.right < SCREEN_WIDTH)):
             self.rect.left += self.speed
-        if (state == WALK_S):
+        if ((state == WALK_S) & (self.rect.bottom < SCREEN_HEIGHT-25)):
             self.rect.top += self.speed
-        if (state == WALK_W):
+        if ((state == WALK_W) & (self.rect.left > 0)):
             self.rect.left -= self.speed
-        if (state == WALK_N):
+        if ((state == WALK_N) & (self.rect.top > 25)):
             self.rect.top -= self.speed
         if (state == STAND):
             pass
