@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 from Constants import *
+from Baby import *
 
 class Daddy(pygame.sprite.Sprite):
     """

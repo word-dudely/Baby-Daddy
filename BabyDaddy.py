@@ -1,6 +1,7 @@
 import pygame, codecs, math, sys, time
 from pygame.locals import *
 from Daddy import *
+from Baby import *
 from Constants import *
 from DynamicTexts import *
 from MainMenu import *
@@ -76,10 +77,6 @@ def main():
                     gameState=GAME_ON
                 if menu.exitBtn_rect.collidepoint(x,y):
                     sys.exit(0)
-            #if ((event.type == MOUSEBUTTONDOWN) & (gameState==GAME_ON)):
-                #x,y = event.pos
-                #if game.daddy.rect.collidepoint(x,y):
-                    #print("Daddy!")
             if ((event.type == KEYDOWN) & (gameState==GAME_ON)):
                 if event.key == K_RIGHT:
                     daddyState = WALK_E
@@ -90,6 +87,9 @@ def main():
                 if event.key == K_UP:
                     daddyState = WALK_N
                 game.daddy.moveDaddy(daddyState)
+            if (pygame.sprite.collide_rect(game.baby, game.daddy)):
+                createMenu()
+                gameState=MAIN_MENU
             if ((event.type == KEYUP) & (gameState==GAME_ON)):
                 if event.key == K_ESCAPE: 
                     createMenu()

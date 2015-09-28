@@ -27,3 +27,8 @@ WALK_N='walk north'
 WALK_E='walk east'
 WALK_S='walk south'
 WALK_W='walk west'
+
+#Baby states
+SLEEP = 'sleep'
+HUNGRY = 'hungry'
+DIAPER_FULL = 'diaper full'

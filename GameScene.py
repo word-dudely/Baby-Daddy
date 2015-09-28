@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from Constants import *
 from Daddy import *
+from Baby import *
 from DynamicTexts import *
 
 class GameScene(pygame.sprite.Sprite):
@@ -21,9 +22,10 @@ class GameScene(pygame.sprite.Sprite):
         self.background = pygame.image.load('images/hardwoodFloor.jpg')
         self.background_rect=self.background.get_rect()
         self.image = pygame.Surface(SCREEN_SIZE)
-        
-        #self.image.fill(WHITE)
         self.rect=self.image.get_rect()
+        
+        self.daddy=Daddy()
+        self.baby=Baby()
 
         #HUD
         self.HUD=pygame.Surface((SCREEN_WIDTH, 25))
@@ -54,24 +56,32 @@ class GameScene(pygame.sprite.Sprite):
         self.image.blit(self.textTIMER, self.textTIMER_rect)
         
     def startGame(self):
+        #score
         self.numDP=0
         self.numLVL=0
-        self.daddy=Daddy()
+        #daddy 
         self.daddy.rect.center = self.rect.center
         self.daddySprite=pygame.sprite.RenderPlain(self.daddy)
         self.daddySprite.draw(self.image)
+        #baby 
+        self.babySprite=pygame.sprite.RenderPlain(self.baby)
+        self.babySprite.draw(self.image)
+        
 
     def update(self):
         #update the HUD
         self.textDP = self.font.render(DADDY_POINTS_LABEL+str(self.numDP), True, BLACK, WHITE)
         self.textLVL = self.font.render(LEVEL_LABEL+str(self.numLVL), True, BLACK, WHITE)
         #redraw the scene
-        #self.image.fill(WHITE)
         self.image.blit(self.background, self.background_rect)
         self.daddySprite=pygame.sprite.RenderPlain(self.daddy)
         self.daddySprite.draw(self.image)
+        self.babySprite=pygame.sprite.RenderPlain(self.baby)
+        self.babySprite.draw(self.image)
         self.image.blit(self.HUD_shadow, self.HUD_shadow_rect)
         self.image.blit(self.HUD, self.HUD_rect)
         self.image.blit(self.textDP, self.textDP_rect)
         self.image.blit(self.textLVL, self.textLVL_rect)
         self.image.blit(self.textTIMER, self.textTIMER_rect)
+        if pygame.sprite.collide_rect(self.baby, self.daddy):
+            print("collided!")
