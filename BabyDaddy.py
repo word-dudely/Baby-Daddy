@@ -28,6 +28,7 @@ def main():
     #prime the states
     gameState=MAIN_MENU
     daddyState=STAND
+    babyState=SLEEP
     #birth my sprites
     menu=MainMenu()
     game=GameScene()
