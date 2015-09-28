@@ -57,6 +57,7 @@ def main():
         pygame.mixer.music.fadeout(50)
         changeMusic('babyDaddyMainLoop.wav')
         pygame.display.flip()
+        game.startGame()
         
         
         

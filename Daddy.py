@@ -14,7 +14,7 @@ class Daddy(pygame.sprite.Sprite):
         pygame.init()
         pygame.sprite.Sprite.__init__(self)
         
-        self.speed = 4
+        self.speed = 10
         self.image = pygame.image.load('images/zelda_sprites/walk_s01.png')
         self.rect = self.image.get_rect()
         
