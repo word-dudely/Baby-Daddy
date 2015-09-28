@@ -23,6 +23,7 @@ class GameScene(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         
         self.daddy=Daddy()
+        self.daddy.rect = self.daddy.rect.move(400,400)
         self.daddySprite=pygame.sprite.RenderPlain(self.daddy)
         self.daddySprite.draw(self.image)
         
