@@ -28,6 +28,8 @@ class GameScene(pygame.sprite.Sprite):
         self.daddy=Daddy()
         self.baby=Baby()
         self.enemy=Enemy()
+        self.enemySprite=pygame.sprite.RenderPlain(self.enemy)
+        self.enemySprite.draw(self.image)
 
         #HUD
         self.HUD=pygame.Surface((SCREEN_WIDTH, 25))
@@ -69,8 +71,8 @@ class GameScene(pygame.sprite.Sprite):
         self.babySprite=pygame.sprite.RenderPlain(self.baby)
         self.babySprite.draw(self.image)
         #enemy
-        self.enemySprite=pygame.sprite.RenderPlain(self.enemy)
-        self.enemySprite.draw(self.image)
+        self.enemySprite.empty()
+        self.enemy=Enemy()
         
 
     def update(self):
