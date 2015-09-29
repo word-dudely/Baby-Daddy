@@ -16,16 +16,16 @@ class Daddy(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         
         self.speed = 10
-        self.image = pygame.image.load('images/zelda_sprites/walk_s01.png')
+        self.image = pygame.image.load('images/daddy/daddy_s02.png')
         self.rect = self.image.get_rect()
         
-        self.walk_n_anim = ['images/zelda_sprites/walk_n01.png', 'images/zelda_sprites/walk_n02.png','images/zelda_sprites/walk_n03.png','images/zelda_sprites/walk_n04.png','images/zelda_sprites/walk_n05.png','images/zelda_sprites/walk_n06.png','images/zelda_sprites/walk_n07.png','images/zelda_sprites/walk_n08.png']
+        self.walk_n_anim = ['images/daddy/daddy_n01.png', 'images/daddy/daddy_n02.png','images/daddy/daddy_n03.png','images/daddy/daddy_n04.png','images/daddy/daddy_n05.png','images/daddy/daddy_n06.png','images/daddy/daddy_n07.png','images/daddy/daddy_n08.png']
         
-        self.walk_e_anim = ['images/zelda_sprites/walk_e01.png', 'images/zelda_sprites/walk_e02.png','images/zelda_sprites/walk_e03.png','images/zelda_sprites/walk_e04.png','images/zelda_sprites/walk_e05.png','images/zelda_sprites/walk_e06.png']
+        self.walk_e_anim = ['images/daddy/daddy_e01.png', 'images/daddy/daddy_e02.png','images/daddy/daddy_e03.png','images/daddy/daddy_e04.png','images/daddy/daddy_e05.png','images/daddy/daddy_e06.png']
         
-        self.walk_s_anim = ['images/zelda_sprites/walk_s01.png', 'images/zelda_sprites/walk_s02.png','images/zelda_sprites/walk_s03.png','images/zelda_sprites/walk_s04.png','images/zelda_sprites/walk_s05.png','images/zelda_sprites/walk_s06.png','images/zelda_sprites/walk_s07.png']
+        self.walk_s_anim = ['images/daddy/daddy_s01.png', 'images/daddy/daddy_s02.png','images/daddy/daddy_s03.png','images/daddy/daddy_s04.png','images/daddy/daddy_s05.png','images/daddy/daddy_s06.png','images/daddy/daddy_s07.png']
         
-        self.walk_w_anim = ['images/zelda_sprites/walk_w01.png', 'images/zelda_sprites/walk_w02.png','images/zelda_sprites/walk_w03.png','images/zelda_sprites/walk_w04.png','images/zelda_sprites/walk_w05.png','images/zelda_sprites/walk_w06.png']
+        self.walk_w_anim = ['images/daddy/daddy_w01.png', 'images/daddy/daddy_w02.png','images/daddy/daddy_w03.png','images/daddy/daddy_w04.png','images/daddy/daddy_w05.png','images/daddy/daddy_w06.png']
         
         self.i=0
         

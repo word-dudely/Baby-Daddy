@@ -99,8 +99,8 @@ def main():
                     daddyState = STAND
                     game.daddy.moveDaddy(daddyState)
         if gameState==GAME_ON:
-            game.numDP+=1
-            game.numLVL+=1
+            #game.numDP+=1
+            #game.numLVL+=1
             game.update()
             gameSprite=pygame.sprite.RenderPlain(game)
             gameSprite.draw(background)
