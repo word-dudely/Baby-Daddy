@@ -15,7 +15,8 @@ class Daddy(pygame.sprite.Sprite):
         pygame.init()
         pygame.sprite.Sprite.__init__(self)
         
-        self.speed = 10
+        
+        self.speed = 8
         self.image = pygame.image.load('images/daddy/daddy_s02.png')
         self.rect = self.image.get_rect()
         
@@ -29,35 +30,38 @@ class Daddy(pygame.sprite.Sprite):
         
         self.i=0
         
-    def moveDaddy(self, state):
+    def moveDaddy(self, state, baby_rect):
         if ((state == WALK_E) & (self.rect.right < SCREEN_WIDTH)):
-            self.rect.left += self.speed
-            if (self.i<len(self.walk_e_anim)):
-                self.image = pygame.image.load(self.walk_e_anim[self.i])
-                self.i+=1
-            else:
-                self.i=0
+            if (((self.rect.bottom < baby_rect.top) | (self.rect.top > baby_rect.bottom)) | ((self.rect.right + self.speed < baby_rect.left) | (self.rect.left + self.speed > baby_rect.right))):
+                self.rect.left += self.speed
+                if (self.i<len(self.walk_e_anim)):
+                    self.image = pygame.image.load(self.walk_e_anim[self.i])
+                    self.i+=1
+                else:
+                    self.i=0
         if ((state == WALK_S) & (self.rect.bottom < SCREEN_HEIGHT)):
-            self.rect.top += self.speed
-            if (self.i<len(self.walk_s_anim)):
-                self.image = pygame.image.load(self.walk_s_anim[self.i])
-                self.i+=1
-            else:
-                self.i=0
+            if (((self.rect.left > baby_rect.right) | (self.rect.right < baby_rect.left)) | ((self.rect.bottom + self.speed < baby_rect.top) | (self.rect.top + self.speed > baby_rect.bottom))):
+                self.rect.top += self.speed
+                if (self.i<len(self.walk_s_anim)):
+                    self.image = pygame.image.load(self.walk_s_anim[self.i])
+                    self.i+=1
+                else:
+                    self.i=0
         if ((state == WALK_W) & (self.rect.left > 0)):
-            self.rect.left -= self.speed
-            if (self.i<len(self.walk_w_anim)):
-                self.image = pygame.image.load(self.walk_w_anim[self.i])
-                self.i+=1
-            else:
-                self.i=0
+            if (((self.rect.bottom < baby_rect.top) | (self.rect.top > baby_rect.bottom)) | ((self.rect.left - self.speed > baby_rect.right) | (self.rect.right - self.speed < baby_rect.left))):
+                self.rect.left -= self.speed
+                if (self.i<len(self.walk_w_anim)):
+                    self.image = pygame.image.load(self.walk_w_anim[self.i])
+                    self.i+=1
+                else:
+                    self.i=0
         if ((state == WALK_N) & (self.rect.top > 25)):
-            self.rect.top -= self.speed
-            if (self.i<len(self.walk_n_anim)):
-                self.image = pygame.image.load(self.walk_n_anim[self.i])
-                self.i+=1
-            else:
-                self.i=0
-                
+            if (((self.rect.bottom - self.speed < baby_rect.top) | (self.rect.top - self.speed > baby_rect.bottom)) | ((self.rect.left > baby_rect.right) | (self.rect.right < baby_rect.left))):
+                self.rect.top -= self.speed
+                if (self.i<len(self.walk_n_anim)):
+                    self.image = pygame.image.load(self.walk_n_anim[self.i])
+                    self.i+=1
+                else:
+                    self.i=0
         if (state == STAND):
             pass

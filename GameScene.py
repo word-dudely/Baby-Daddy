@@ -83,5 +83,3 @@ class GameScene(pygame.sprite.Sprite):
         self.image.blit(self.textDP, self.textDP_rect)
         self.image.blit(self.textLVL, self.textLVL_rect)
         self.image.blit(self.textTIMER, self.textTIMER_rect)
-        if pygame.sprite.collide_rect(self.baby, self.daddy):
-            print("collided!")

@@ -87,17 +87,14 @@ def main():
                     daddyState = WALK_W
                 if event.key == K_UP:
                     daddyState = WALK_N
-                game.daddy.moveDaddy(daddyState)
-            if (pygame.sprite.collide_rect(game.baby, game.daddy)):
-                createMenu()
-                gameState=MAIN_MENU
+                game.daddy.moveDaddy(daddyState, game.baby.rect)
             if ((event.type == KEYUP) & (gameState==GAME_ON)):
                 if event.key == K_ESCAPE: 
                     createMenu()
                     gameState=MAIN_MENU
                 else:
                     daddyState = STAND
-                    game.daddy.moveDaddy(daddyState)
+                    game.daddy.moveDaddy(daddyState, game.baby.rect)
         if gameState==GAME_ON:
             #game.numDP+=1
             #game.numLVL+=1

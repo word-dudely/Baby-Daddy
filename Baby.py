@@ -17,3 +17,4 @@ class Baby(pygame.sprite.Sprite):
         self.image = pygame.Surface((100,200))
         self.image.fill(PINK)
         self.rect = self.image.get_rect()
+        self.rect = self.rect.move((200,200))
