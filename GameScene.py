@@ -3,6 +3,7 @@ from pygame.locals import *
 from Constants import *
 from Daddy import *
 from Baby import *
+from Enemy import *
 from DynamicTexts import *
 
 class GameScene(pygame.sprite.Sprite):
@@ -26,6 +27,7 @@ class GameScene(pygame.sprite.Sprite):
         
         self.daddy=Daddy()
         self.baby=Baby()
+        self.enemy=Enemy()
 
         #HUD
         self.HUD=pygame.Surface((SCREEN_WIDTH, 25))
@@ -66,6 +68,9 @@ class GameScene(pygame.sprite.Sprite):
         #baby 
         self.babySprite=pygame.sprite.RenderPlain(self.baby)
         self.babySprite.draw(self.image)
+        #enemy
+        self.enemySprite=pygame.sprite.RenderPlain(self.enemy)
+        self.enemySprite.draw(self.image)
         
 
     def update(self):
@@ -78,6 +83,15 @@ class GameScene(pygame.sprite.Sprite):
         self.daddySprite.draw(self.image)
         self.babySprite=pygame.sprite.RenderPlain(self.baby)
         self.babySprite.draw(self.image)
+        #enemy mine
+        self.enemy.rect=self.enemy.rect.move(self.enemy.speed)
+        self.enemySprite=pygame.sprite.RenderPlain(self.enemy)
+        self.enemySprite.draw(self.image)
+        if ((self.enemy.rect.left > SCREEN_WIDTH) | (self.enemy.rect.right < 0) | (self.enemy.rect.bottom < 0) | (self.enemy.rect.top > SCREEN_HEIGHT)):
+            self.enemySprite.empty()
+            self.enemy=Enemy()
+            self.enemySprite=pygame.sprite.RenderPlain(self.enemy)
+            self.enemySprite.draw(self.image)
         self.image.blit(self.HUD_shadow, self.HUD_shadow_rect)
         self.image.blit(self.HUD, self.HUD_rect)
         self.image.blit(self.textDP, self.textDP_rect)

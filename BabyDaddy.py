@@ -2,6 +2,7 @@ import pygame, codecs, math, sys, time
 from pygame.locals import *
 from Daddy import *
 from Baby import *
+from Enemy import *
 from Constants import *
 from DynamicTexts import *
 from MainMenu import *

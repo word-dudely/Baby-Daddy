@@ -32,3 +32,9 @@ WALK_W='walk west'
 SLEEP = 'sleep'
 HUNGRY = 'hungry'
 DIAPER_FULL = 'diaper full'
+
+#Enemy states
+MOVE_N='move north'
+MOVE_E='move east'
+MOVE_S='move south'
+MOVE_W='move west'

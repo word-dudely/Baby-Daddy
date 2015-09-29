@@ -26,3 +26,7 @@ clean the house (4 hrs, 4 daddyPoints)
 wash clothes (3 hrs, 3 daddyPoints)
 Fifth level adds:
 Going to work (8 hrs, 4 daddyPoints)
+
+
+Time-crunch concept:
+Throw all that away, right now we have a moving character on screen that moves around the "baby". I'm thinking "defend the baby" by blocking things coming at it with the daddy. The baby gets hit 3 times, you're done.
