@@ -80,16 +80,18 @@ def main():
                 if menu.exitBtn_rect.collidepoint(x,y):
                     sys.exit(0)
             if ((event.type == KEYDOWN) & (gameState==GAME_ON)):
-                if event.key == K_RIGHT:
+                if (event.key == K_RIGHT) | (event.key == K_d):
                     daddyState = WALK_E
-                if event.key == K_DOWN:
+                if (event.key == K_DOWN) | (event.key == K_s):
                     daddyState = WALK_S
-                if event.key == K_LEFT:
+                if (event.key == K_LEFT) | (event.key == K_a):
                     daddyState = WALK_W
-                if event.key == K_UP:
+                if (event.key == K_UP) | (event.key == K_w):
                     daddyState = WALK_N
                 game.daddy.moveDaddy(daddyState, game.baby.rect)
             if ((event.type == KEYUP) & (gameState==GAME_ON)):
+                if event.key == K_SPACE:
+                    game.shootDaddy()
                 if event.key == K_ESCAPE: 
                     createMenu()
                     gameState=MAIN_MENU
@@ -97,8 +99,6 @@ def main():
                     daddyState = STAND
                     game.daddy.moveDaddy(daddyState, game.baby.rect)
         if gameState==GAME_ON:
-            #game.numDP+=1
-            #game.numLVL+=1
             game.update()
             gameSprite=pygame.sprite.RenderPlain(game)
             gameSprite.draw(background)

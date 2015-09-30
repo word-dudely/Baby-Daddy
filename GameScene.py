@@ -4,13 +4,14 @@ from Constants import *
 from Daddy import *
 from Baby import *
 from Enemy import *
+from Projectile import *
 from DynamicTexts import *
 
 class GameScene(pygame.sprite.Sprite):
     """
-    Sets up, starts, and runs the game scene
+    The main game scene and logic.
     Returns: game scene
-    Functions: startGame, update
+    Functions: startGame, launchEnemy, punchDaddy, update
     """
     def __init__(self):
         #Call the parent class (Sprite) constructor
@@ -25,12 +26,6 @@ class GameScene(pygame.sprite.Sprite):
         self.image = pygame.Surface(SCREEN_SIZE)
         self.rect=self.image.get_rect()
         
-        self.daddy=Daddy()
-        self.baby=Baby()
-        self.enemy=Enemy()
-        self.enemySprite=pygame.sprite.RenderPlain(self.enemy)
-        self.enemySprite.draw(self.image)
-
         #HUD
         self.HUD=pygame.Surface((SCREEN_WIDTH, 25))
         self.HUD_rect=self.HUD.get_rect()
@@ -64,16 +59,49 @@ class GameScene(pygame.sprite.Sprite):
         self.numDP=0
         self.numLVL=0
         #daddy 
+        self.daddy=Daddy()
         self.daddy.rect.center = self.rect.center
         self.daddySprite=pygame.sprite.RenderPlain(self.daddy)
         self.daddySprite.draw(self.image)
         #baby 
+        self.baby=Baby()
         self.babySprite=pygame.sprite.RenderPlain(self.baby)
         self.babySprite.draw(self.image)
+        while self.baby.rect.colliderect(self.daddy.rect):
+            self.babySprite.empty()
+            self.baby=Baby()
+            self.babySprite=pygame.sprite.RenderPlain(self.baby)
+            self.babySprite.draw(self.image)
         #enemy
-        self.enemySprite.empty()
-        self.enemy=Enemy()
+        self.launchEnemy()
         
+    def launchEnemy(self):
+        self.enemy=Enemy()
+        self.enemySprite=pygame.sprite.RenderPlain(self.enemy)
+        self.enemySprite.draw(self.image)
+        
+    def punchDaddy(self):
+        self.punchSurface=pygame.Surface((30,30))
+        self.punchSurface.fill(WHITE)
+        self.punchRect=self.punchSurface.get_rect()
+        if self.daddy.direction == NORTH:
+            self.punchRect.midbottom=self.daddy.rect.midtop
+        if self.daddy.direction == EAST:
+            self.punchRect.midleft=self.daddy.rect.midright
+        if self.daddy.direction == SOUTH:
+            self.punchRect.midtop=self.daddy.rect.midbottom
+        if self.daddy.direction == WEST:
+            self.punchRect.midright=self.daddy.rect.midleft
+        self.image.blit(self.punchSurface, self.punchRect)
+        if self.punchRect.colliderect(self.enemy.rect):
+            self.enemySprite.empty()
+            self.numDP+=10
+            self.launchEnemy()
+    #where I stopped        
+    def shootDaddy(self):
+        self.projectile=Projectile(self.daddy.direction, self.daddy.rect)
+        self.projectileGroup=pygame.sprite.RenderPlain(self.projectile)
+        self.projectileGroup.draw(self.image)
 
     def update(self):
         #update the HUD
@@ -86,7 +114,7 @@ class GameScene(pygame.sprite.Sprite):
         self.babySprite=pygame.sprite.RenderPlain(self.baby)
         self.babySprite.draw(self.image)
         #enemy mine
-        self.enemy.rect=self.enemy.rect.move(self.enemy.speed)
+        self.enemy.update(self.baby.rect)
         self.enemySprite=pygame.sprite.RenderPlain(self.enemy)
         self.enemySprite.draw(self.image)
         if ((self.enemy.rect.left > SCREEN_WIDTH) | (self.enemy.rect.right < 0) | (self.enemy.rect.bottom < 0) | (self.enemy.rect.top > SCREEN_HEIGHT)):

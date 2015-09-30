@@ -38,3 +38,9 @@ MOVE_N='move north'
 MOVE_E='move east'
 MOVE_S='move south'
 MOVE_W='move west'
+
+#Direction states (seems like this should have been done first...)
+NORTH='north'
+EAST='east'
+SOUTH='south'
+WEST='west'
