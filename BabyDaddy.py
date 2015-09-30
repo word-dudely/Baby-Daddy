@@ -17,7 +17,7 @@ def main():
     else:screen = pygame.display.set_mode(SCREEN_SIZE, FULLSCREEN)
     pygame.display.set_icon(pygame.image.load(ICON))
     pygame.display.set_caption(TITLE_BAR_TEXT)
-    pygame.key.set_repeat(30,30)
+    pygame.key.set_repeat(40,40)
 
     clock = pygame.time.Clock()
     clock.tick(30)
