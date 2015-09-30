@@ -11,7 +11,8 @@ class GameScene(pygame.sprite.Sprite):
     """
     The main game scene and logic.
     Returns: game scene
-    Functions: startGame, launchEnemy, punchDaddy, update
+    Functions: startGame, launchEnemy, punchDaddy, shootDaddy, update
+    Attributes: image, rect, background, HUD, numDP, numLVL, daddy, daddySprite, baby, babySprite, enemyGroup, projectileGroup
     """
     def __init__(self):
         #Call the parent class (Sprite) constructor
@@ -40,19 +41,19 @@ class GameScene(pygame.sprite.Sprite):
         self.textDP_rect.midtop = self.rect.midtop
         self.textDP_rect=self.textDP_rect.move(0,+2)
         self.textLVL = self.font.render(LEVEL_LABEL+str(self.numLVL), True, BLACK, WHITE)
-        self.textLVL_rect = self.textLVL.get_rect()
-        self.textLVL_rect.topleft = self.rect.topleft
-        self.textLVL_rect=self.textLVL_rect.move(+2,+2)
-        self.textTIMER = self.font.render(TIMER_LABEL, True, BLACK, WHITE)
-        self.textTIMER_rect = self.textTIMER.get_rect()
-        self.textTIMER_rect.topright = self.rect.topright
-        self.textTIMER_rect=self.textTIMER_rect.move(-2,+2)
+        #self.textLVL_rect = self.textLVL.get_rect()
+        #self.textLVL_rect.topleft = self.rect.topleft
+        #self.textLVL_rect=self.textLVL_rect.move(+2,+2)
+        #self.textTIMER = self.font.render(TIMER_LABEL, True, BLACK, WHITE)
+        #self.textTIMER_rect = self.textTIMER.get_rect()
+        #self.textTIMER_rect.topright = self.rect.topright
+        #self.textTIMER_rect=self.textTIMER_rect.move(-2,+2)
         self.image.blit(self.background, self.background_rect)
         self.image.blit(self.HUD_shadow, self.HUD_shadow_rect)
         self.image.blit(self.HUD, self.HUD_rect)
         self.image.blit(self.textDP, self.textDP_rect)
-        self.image.blit(self.textLVL, self.textLVL_rect)
-        self.image.blit(self.textTIMER, self.textTIMER_rect)
+        #self.image.blit(self.textLVL, self.textLVL_rect)
+        #self.image.blit(self.textTIMER, self.textTIMER_rect)
         
     def startGame(self):
         #score
@@ -72,15 +73,15 @@ class GameScene(pygame.sprite.Sprite):
             self.babySprite.add(self.baby)
             self.babySprite.draw(self.image)
         #enemies!
-        self.enemySprite=pygame.sprite.Group()
+        self.enemyGroup=pygame.sprite.Group()
         self.launchEnemy()
         #projectiles!
         self.projectileGroup=pygame.sprite.Group()
         
     def launchEnemy(self):
         self.enemy=Enemy()
-        self.enemySprite.add(self.enemy)
-        self.enemySprite.draw(self.image)
+        self.enemyGroup.add(self.enemy)
+        self.enemyGroup.draw(self.image)
      
     #removed for now and replaced with projectiles
     def punchDaddy(self):
@@ -97,7 +98,7 @@ class GameScene(pygame.sprite.Sprite):
             self.punchRect.midright=self.daddy.rect.midleft
         self.image.blit(self.punchSurface, self.punchRect)
         if self.punchRect.colliderect(self.enemy.rect):
-            self.enemySprite.remove(self.enemy)
+            self.enemyGroup.remove(self.enemy)
             self.numDP+=10
             self.launchEnemy()
       
@@ -110,19 +111,19 @@ class GameScene(pygame.sprite.Sprite):
     def update(self):
         #update the HUD
         self.textDP = self.font.render(DADDY_POINTS_LABEL+str(self.numDP), True, BLACK, WHITE)
-        self.textLVL = self.font.render(LEVEL_LABEL+str(self.numLVL), True, BLACK, WHITE)
+        #self.textLVL = self.font.render(LEVEL_LABEL+str(self.numLVL), True, BLACK, WHITE)
         #redraw the scene
         self.image.blit(self.background, self.background_rect)
         self.daddySprite.draw(self.image)
         self.babySprite.draw(self.image)
         #enemy mine
         self.enemy.update(self.baby.rect)
-        self.enemySprite.draw(self.image)
+        self.enemyGroup.draw(self.image)
         if ((self.enemy.rect.left > SCREEN_WIDTH) | (self.enemy.rect.right < 0) | (self.enemy.rect.bottom < 0) | (self.enemy.rect.top > SCREEN_HEIGHT)):
-            self.enemySprite.remove(self.enemy)
+            self.enemyGroup.remove(self.enemy)
             self.launchEnemy()
         if pygame.sprite.spritecollide(self.enemy, self.projectileGroup, True):
-            self.enemySprite.remove(self.enemy)
+            self.enemyGroup.remove(self.enemy)
             self.numDP+=10
             self.launchEnemy()
         self.projectileGroup.update()
@@ -130,5 +131,5 @@ class GameScene(pygame.sprite.Sprite):
         self.image.blit(self.HUD_shadow, self.HUD_shadow_rect)
         self.image.blit(self.HUD, self.HUD_rect)
         self.image.blit(self.textDP, self.textDP_rect)
-        self.image.blit(self.textLVL, self.textLVL_rect)
-        self.image.blit(self.textTIMER, self.textTIMER_rect)
+        #self.image.blit(self.textLVL, self.textLVL_rect)
+        #self.image.blit(self.textTIMER, self.textTIMER_rect)
