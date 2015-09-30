@@ -30,10 +30,10 @@ class Projectile(pygame.sprite.Sprite):
         
     def update(self):
         if self.direction==NORTH:
-            self.rect=self.rect.move(0,-1)
+            self.rect=self.rect.move(0,-4)
         if self.direction==EAST:
-            self.rect=self.rect.move(+1,0)
+            self.rect=self.rect.move(+4,0)
         if self.direction==SOUTH:
-            self.rect=self.rect.move(0,+1)
+            self.rect=self.rect.move(0,+4)
         if self.direction==WEST:
-            self.rect=self.rect.move(-1,0)
+            self.rect=self.rect.move(-4,0)
