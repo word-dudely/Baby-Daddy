@@ -14,18 +14,24 @@ class Projectile(pygame.sprite.Sprite):
         pygame.init()
         pygame.sprite.Sprite.__init__(self)
         
-        self.image = pygame.Surface((10,10))
-        self.image.fill(WHITE)
+        #self.image = pygame.Surface((15,30))
+        #self.image.fill(WHITE)
+        self.image=pygame.image.load('images/bottle.png')
         self.rect = self.image.get_rect()
         self.direction=direction
         
         if self.direction==NORTH:
             self.rect.midbottom=daddy_rect.midtop
         if self.direction==EAST:
+            self.image=pygame.transform.rotate(self.image, 270)
+            self.rect=self.image.get_rect()
             self.rect.midleft=daddy_rect.midright
         if self.direction==SOUTH:
+            self.image=pygame.transform.flip(self.image, False, True)
             self.rect.midtop=daddy_rect.midbottom
         if self.direction==WEST:
+            self.image=pygame.transform.rotate(self.image, 90)
+            self.rect=self.image.get_rect()
             self.rect.midright=daddy_rect.midleft
         
     def update(self):

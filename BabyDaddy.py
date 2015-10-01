@@ -28,7 +28,7 @@ def main():
     screen_surface_rect = screen_surface.get_rect()
     #prime the states
     gameState=MAIN_MENU
-    daddyState=STAND
+    daddyState=[STAND,STAND_S]
     babyState=SLEEP
     #birth my sprites
     menu=MainMenu()
