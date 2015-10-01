@@ -11,7 +11,7 @@ class GameScene(pygame.sprite.Sprite):
     """
     The main game scene and logic.
     Returns: game scene
-    Functions: startGame, launchEnemy, punchDaddy, shootDaddy, update
+    Functions: startGame, launchEnemy, shootDaddy, update
     Attributes: image, rect, background, HUD, numDP, numLVL, daddy, daddySprite, baby, babySprite, enemyGroup, projectileGroup
     """
     def __init__(self):
@@ -75,6 +75,8 @@ class GameScene(pygame.sprite.Sprite):
         #enemies!
         self.enemyGroup=pygame.sprite.Group()
         self.launchEnemy()
+        self.launchEnemy()
+        self.launchEnemy()
         #projectiles!
         self.projectileGroup=pygame.sprite.Group()
         
@@ -82,25 +84,6 @@ class GameScene(pygame.sprite.Sprite):
         self.enemy=Enemy()
         self.enemyGroup.add(self.enemy)
         self.enemyGroup.draw(self.image)
-     
-    #removed for now and replaced with projectiles
-    def punchDaddy(self):
-        self.punchSurface=pygame.Surface((30,30))
-        self.punchSurface.fill(WHITE)
-        self.punchRect=self.punchSurface.get_rect()
-        if self.daddy.direction == NORTH:
-            self.punchRect.midbottom=self.daddy.rect.midtop
-        if self.daddy.direction == EAST:
-            self.punchRect.midleft=self.daddy.rect.midright
-        if self.daddy.direction == SOUTH:
-            self.punchRect.midtop=self.daddy.rect.midbottom
-        if self.daddy.direction == WEST:
-            self.punchRect.midright=self.daddy.rect.midleft
-        self.image.blit(self.punchSurface, self.punchRect)
-        if self.punchRect.colliderect(self.enemy.rect):
-            self.enemyGroup.remove(self.enemy)
-            self.numDP+=10
-            self.launchEnemy()
       
     def shootDaddy(self):
         self.projectile=Projectile(self.daddy.direction, self.daddy.rect)
@@ -116,16 +99,17 @@ class GameScene(pygame.sprite.Sprite):
         self.image.blit(self.background, self.background_rect)
         self.daddySprite.draw(self.image)
         self.babySprite.draw(self.image)
-        #enemy mine
-        self.enemy.update(self.baby.rect)
+        #enemies
+        for enemies in iter(self.enemyGroup):
+            if ((enemies.rect.left > SCREEN_WIDTH) | (enemies.rect.right < 0) | (enemies.rect.bottom < 0) | (enemies.rect.top > SCREEN_HEIGHT)):
+                self.enemyGroup.remove(enemies)
+                self.launchEnemy()
+        self.enemyGroup.update(self.baby.rect)
         self.enemyGroup.draw(self.image)
-        if ((self.enemy.rect.left > SCREEN_WIDTH) | (self.enemy.rect.right < 0) | (self.enemy.rect.bottom < 0) | (self.enemy.rect.top > SCREEN_HEIGHT)):
-            self.enemyGroup.remove(self.enemy)
-            self.launchEnemy()
+        #projectiles
         for projectiles in iter(self.projectileGroup):
             #did you hit the zombie?
-            if pygame.sprite.collide_rect(self.enemy, projectiles):
-                self.enemyGroup.remove(self.enemy)
+            if pygame.sprite.spritecollide(projectiles, self.enemyGroup, True):
                 self.projectileGroup.remove(projectiles)
                 self.numDP+=1
                 self.launchEnemy()

@@ -68,7 +68,7 @@ def main():
     #display menu
     createMenu()
     
-    #state machine/infinite loop. This will get messy...
+    #state machine/infinite loop. This may get messy...
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
