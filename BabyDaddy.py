@@ -22,10 +22,10 @@ def main():
     clock = pygame.time.Clock()
     clock.tick(30)
     
-    background = pygame.Surface(screen.get_size())
-    background = background.convert()
-    background.fill(WHITE)
-    background_rect = background.get_rect()
+    screen_surface = pygame.Surface(screen.get_size())
+    screen_surface = screen_surface.convert()
+    screen_surface.fill(WHITE)
+    screen_surface_rect = screen_surface.get_rect()
     #prime the states
     gameState=MAIN_MENU
     daddyState=STAND
@@ -33,6 +33,8 @@ def main():
     #birth my sprites
     menu=MainMenu()
     game=GameScene()
+    #and the program container
+    spriteContainer=pygame.sprite.GroupSingle()
     
 
     def changeMusic(newTrack, volume=GLOBAL_MUSIC_VOLUME):
@@ -44,19 +46,18 @@ def main():
         
     def createMenu():
         gameState=MAIN_MENU
-        menuBG=pygame.Surface(SCREEN_SIZE)
-        menuSprite=pygame.sprite.RenderPlain(menu)
-        menuSprite.draw(menuBG)
-        screen.blit(menuBG, (0,0))
+        spriteContainer.add(menu)
+        spriteContainer.draw(screen_surface)
+        screen.blit(screen_surface, (0,0))
         pygame.mixer.music.fadeout(50)
         pygame.display.flip()
         changeMusic('babyDaddyHookRepeat.ogg')
         
     def startGame():
         gameState=GAME_ON
-        gameSprite=pygame.sprite.RenderPlain(game)
-        gameSprite.draw(background)
-        screen.blit(background, (0,0))
+        spriteContainer.add(game)
+        spriteContainer.draw(screen_surface)
+        screen.blit(screen_surface, (0,0))
         pygame.mixer.music.fadeout(50)
         changeMusic('babyDaddyMainLoop.wav')
         pygame.display.flip()
@@ -100,9 +101,8 @@ def main():
                     game.daddy.moveDaddy(daddyState, game.baby.rect)
         if gameState==GAME_ON:
             game.update()
-            gameSprite=pygame.sprite.RenderPlain(game)
-            gameSprite.draw(background)
-            screen.blit(background, (0,0))
+            spriteContainer.draw(screen_surface)
+            screen.blit(screen_surface, (0,0))
             pygame.display.flip()            
         
 
