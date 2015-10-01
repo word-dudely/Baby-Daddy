@@ -33,7 +33,7 @@ class Daddy(pygame.sprite.Sprite):
         self.i=0
         
     def moveDaddy(self, state, baby_rect):
-        if ((state == WALK_E) & (self.rect.right < SCREEN_WIDTH)):
+        if ((state[0] == WALK_E) & (self.rect.right < SCREEN_WIDTH)):
             self.direction=EAST
             if (((self.rect.bottom < baby_rect.top) | (self.rect.top > baby_rect.bottom)) | ((self.rect.right + self.speed < baby_rect.left) | (self.rect.left + self.speed > baby_rect.right))):
                 self.rect.left += self.speed
@@ -42,7 +42,7 @@ class Daddy(pygame.sprite.Sprite):
                     self.i+=1
                 else:
                     self.i=0
-        if ((state == WALK_S) & (self.rect.bottom < SCREEN_HEIGHT)):
+        if ((state[0] == WALK_S) & (self.rect.bottom < SCREEN_HEIGHT)):
             self.direction=SOUTH
             if (((self.rect.left > baby_rect.right) | (self.rect.right < baby_rect.left)) | ((self.rect.bottom + self.speed < baby_rect.top) | (self.rect.top + self.speed > baby_rect.bottom))):
                 self.rect.top += self.speed
@@ -51,7 +51,7 @@ class Daddy(pygame.sprite.Sprite):
                     self.i+=1
                 else:
                     self.i=0
-        if ((state == WALK_W) & (self.rect.left > 0)):
+        if ((state[0] == WALK_W) & (self.rect.left > 0)):
             self.direction=WEST
             if (((self.rect.bottom < baby_rect.top) | (self.rect.top > baby_rect.bottom)) | ((self.rect.left - self.speed > baby_rect.right) | (self.rect.right - self.speed < baby_rect.left))):
                 self.rect.left -= self.speed
@@ -60,7 +60,7 @@ class Daddy(pygame.sprite.Sprite):
                     self.i+=1
                 else:
                     self.i=0
-        if ((state == WALK_N) & (self.rect.top > 25)):
+        if ((state[0] == WALK_N) & (self.rect.top > 25)):
             self.direction=NORTH
             if (((self.rect.bottom - self.speed < baby_rect.top) | (self.rect.top - self.speed > baby_rect.bottom)) | ((self.rect.left > baby_rect.right) | (self.rect.right < baby_rect.left))):
                 self.rect.top -= self.speed
@@ -69,5 +69,8 @@ class Daddy(pygame.sprite.Sprite):
                     self.i+=1
                 else:
                     self.i=0
-        if (state == STAND):
-            pass
+        if (state[0] == STAND):
+            if state[1]==STAND_N:self.image=pygame.image.load('images/daddy/daddy_n05.png')
+            if state[1]==STAND_E:self.image=pygame.image.load('images/daddy/daddy_e05.png')
+            if state[1]==STAND_S:self.image=pygame.image.load('images/daddy/daddy_s02.png')
+            if state[1]==STAND_W:self.image=pygame.image.load('images/daddy/daddy_w05.png')

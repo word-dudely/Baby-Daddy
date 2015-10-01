@@ -82,13 +82,13 @@ def main():
                     sys.exit(0)
             if ((event.type == KEYDOWN) & (gameState==GAME_ON)):
                 if (event.key == K_RIGHT) | (event.key == K_d):
-                    daddyState = WALK_E
+                    daddyState = [WALK_E,STAND_E]
                 if (event.key == K_DOWN) | (event.key == K_s):
-                    daddyState = WALK_S
+                    daddyState = [WALK_S,STAND_S]
                 if (event.key == K_LEFT) | (event.key == K_a):
-                    daddyState = WALK_W
+                    daddyState = [WALK_W,STAND_W]
                 if (event.key == K_UP) | (event.key == K_w):
-                    daddyState = WALK_N
+                    daddyState = [WALK_N,STAND_N]
                 game.daddy.moveDaddy(daddyState, game.baby.rect)
             if ((event.type == KEYUP) & (gameState==GAME_ON)):
                 if event.key == K_SPACE:
@@ -97,7 +97,7 @@ def main():
                     createMenu()
                     gameState=MAIN_MENU
                 else:
-                    daddyState = STAND
+                    daddyState[0] = STAND
                     game.daddy.moveDaddy(daddyState, game.baby.rect)
         if gameState==GAME_ON:
             game.update()

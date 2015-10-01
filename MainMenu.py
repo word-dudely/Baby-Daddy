@@ -4,9 +4,10 @@ from Constants import *
 
 class MainMenu(pygame.sprite.Sprite):
     """
-    The Main Fucking Menu!
+    The Main Menu!
     Returns: menu object
     Functions: tbd
+    Attributes: image, rect, logo, startBtn, startBtn_rect, exitBtn, exitBtn_rect
     """
     def __init__(self):
         #Call the parent class (Sprite) constructor

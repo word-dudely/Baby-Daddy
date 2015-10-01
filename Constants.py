@@ -23,6 +23,10 @@ GAME_OVER='game over'
 
 #Daddy states
 STAND='stand'
+STAND_N='stand north'
+STAND_E='stand east'
+STAND_S='stand south'
+STAND_W='stand west'
 WALK_N='walk north'
 WALK_E='walk east'
 WALK_S='walk south'
@@ -39,7 +43,7 @@ MOVE_E='move east'
 MOVE_S='move south'
 MOVE_W='move west'
 
-#Direction states (seems like this should have been done first...)
+#Direction states (projectiles)
 NORTH='north'
 EAST='east'
 SOUTH='south'
