@@ -12,7 +12,7 @@ class GameScene(pygame.sprite.Sprite):
     The main game scene and logic.
     Returns: game scene
     Functions: startGame, launchEnemy, shootDaddy, update
-    Attributes: image, rect, background, HUD, numDP, numLVL, daddy, daddySprite, baby, babySprite, enemyGroup, projectileGroup
+    Attributes: image, rect, background, HUD, numDP, numDH, daddy, daddySprite, baby, babySprite, enemyGroup, projectileGroup
     """
     def __init__(self):
         #Call the parent class (Sprite) constructor
@@ -20,7 +20,8 @@ class GameScene(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         
         self.numDP=0
-        self.numLVL=0
+        self.numDH=5
+        self.heartString='♥♥♥♥♥'
         
         self.background = pygame.image.load('images/hardwoodFloor.jpg')
         self.background_rect=self.background.get_rect()
@@ -40,25 +41,21 @@ class GameScene(pygame.sprite.Sprite):
         self.textDP_rect = self.textDP.get_rect()
         self.textDP_rect.midtop = self.rect.midtop
         self.textDP_rect=self.textDP_rect.move(0,+2)
-        self.textLVL = self.font.render(LEVEL_LABEL+str(self.numLVL), True, BLACK, WHITE)
-        #self.textLVL_rect = self.textLVL.get_rect()
-        #self.textLVL_rect.topleft = self.rect.topleft
-        #self.textLVL_rect=self.textLVL_rect.move(+2,+2)
-        #self.textTIMER = self.font.render(TIMER_LABEL, True, BLACK, WHITE)
-        #self.textTIMER_rect = self.textTIMER.get_rect()
-        #self.textTIMER_rect.topright = self.rect.topright
-        #self.textTIMER_rect=self.textTIMER_rect.move(-2,+2)
+        self.textDH = self.font.render(DADDY_HEARTS_LABEL+self.heartString, True, BLACK, WHITE)
+        self.textDH_rect = self.textDH.get_rect()
+        self.textDH_rect.topleft = self.rect.topleft
+        self.textDH_rect=self.textDH_rect.move(+2,+2)
         self.image.blit(self.background, self.background_rect)
         self.image.blit(self.HUD_shadow, self.HUD_shadow_rect)
         self.image.blit(self.HUD, self.HUD_rect)
         self.image.blit(self.textDP, self.textDP_rect)
-        #self.image.blit(self.textLVL, self.textLVL_rect)
-        #self.image.blit(self.textTIMER, self.textTIMER_rect)
+        self.image.blit(self.textDH, self.textDH_rect)
         
     def startGame(self):
         #score
         self.numDP=0
-        self.numLVL=0
+        self.numDH=5
+        self.heartString='♥♥♥♥♥'
         #daddy 
         self.daddy=Daddy()
         self.daddy.rect.center = self.rect.center
@@ -76,7 +73,6 @@ class GameScene(pygame.sprite.Sprite):
         self.enemyGroup=pygame.sprite.Group()
         self.launchEnemy()
         self.launchEnemy()
-        self.launchEnemy()
         #projectiles!
         self.projectileGroup=pygame.sprite.Group()
         
@@ -89,12 +85,27 @@ class GameScene(pygame.sprite.Sprite):
         self.projectile=Projectile(self.daddy.direction, self.daddy.rect)
         self.projectileGroup.add(self.projectile)
         self.projectileGroup.draw(self.image)
-        
+    
+    def daddyDown(self):
+        self.daddy=Daddy()
+        self.daddy.direction=SOUTH
+        self.daddy.moveDaddy([STAND,STAND_S], self.baby.rect)
+        self.enemyGroup.empty()
+        self.projectileGroup.empty()
+        self.numDH-=1
+        self.heartString=''
+        for i in range(self.numDH):
+            self.heartString=self.heartString+'♥'
+        self.daddy.rect.center = self.rect.center
+        self.daddySprite=pygame.sprite.GroupSingle(self.daddy)
+        self.daddySprite.draw(self.image)
+        self.launchEnemy()
+        self.launchEnemy()
 
     def update(self):
         #update the HUD
         self.textDP = self.font.render(DADDY_POINTS_LABEL+str(self.numDP), True, BLACK, WHITE)
-        #self.textLVL = self.font.render(LEVEL_LABEL+str(self.numLVL), True, BLACK, WHITE)
+        self.textDH = self.font.render(DADDY_HEARTS_LABEL+self.heartString, True, BLACK, WHITE)
         #redraw the scene
         self.image.blit(self.background, self.background_rect)
         self.daddySprite.draw(self.image)
@@ -104,6 +115,8 @@ class GameScene(pygame.sprite.Sprite):
             if ((enemies.rect.left > SCREEN_WIDTH) | (enemies.rect.right < 0) | (enemies.rect.bottom < 0) | (enemies.rect.top > SCREEN_HEIGHT)):
                 self.enemyGroup.remove(enemies)
                 self.launchEnemy()
+            if pygame.sprite.spritecollide(enemies, self.daddySprite, True):
+                self.daddyDown()
         self.enemyGroup.update(self.baby.rect)
         self.enemyGroup.draw(self.image)
         #projectiles
@@ -121,5 +134,4 @@ class GameScene(pygame.sprite.Sprite):
         self.image.blit(self.HUD_shadow, self.HUD_shadow_rect)
         self.image.blit(self.HUD, self.HUD_rect)
         self.image.blit(self.textDP, self.textDP_rect)
-        #self.image.blit(self.textLVL, self.textLVL_rect)
-        #self.image.blit(self.textTIMER, self.textTIMER_rect)
+        self.image.blit(self.textDH, self.textDH_rect)

@@ -103,7 +103,11 @@ def main():
             game.update()
             spriteContainer.draw(screen_surface)
             screen.blit(screen_surface, (0,0))
-            pygame.display.flip()            
+            pygame.display.flip()
+            if game.numDH==0:
+                gameState=MAIN_MENU
+                createMenu()
+                print(GAME_OVER)
         
 
             
