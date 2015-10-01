@@ -115,17 +115,19 @@ class GameScene(pygame.sprite.Sprite):
             if ((enemies.rect.left > SCREEN_WIDTH) | (enemies.rect.right < 0) | (enemies.rect.bottom < 0) | (enemies.rect.top > SCREEN_HEIGHT)):
                 self.enemyGroup.remove(enemies)
                 self.launchEnemy()
-            if pygame.sprite.spritecollide(enemies, self.daddySprite, True):
+            if pygame.sprite.collide_mask(enemies, self.daddy):
                 self.daddyDown()
         self.enemyGroup.update(self.baby.rect)
         self.enemyGroup.draw(self.image)
         #projectiles
         for projectiles in iter(self.projectileGroup):
             #did you hit the zombie?
-            if pygame.sprite.spritecollide(projectiles, self.enemyGroup, True):
-                self.projectileGroup.remove(projectiles)
-                self.numDP+=1
-                self.launchEnemy()
+            for enemies in iter(self.enemyGroup):
+                if pygame.sprite.collide_mask(projectiles, enemies):
+                    self.projectileGroup.remove(projectiles)
+                    self.enemyGroup.remove(enemies)
+                    self.numDP+=1
+                    self.launchEnemy()
             #did you leave the screen?
             if ((projectiles.rect.right<0) | (projectiles.rect.left>SCREEN_WIDTH) | (projectiles.rect.bottom<0) | (projectiles.rect.top>SCREEN_HEIGHT)):
                 self.projectileGroup.remove(projectiles)
