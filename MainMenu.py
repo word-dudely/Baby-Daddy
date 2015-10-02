@@ -38,8 +38,8 @@ class MainMenu(pygame.sprite.Sprite):
         self.textControls2_rect=self.textControls2_rect.move(0,+5)
         self.textControls1_shadow_rect.midtop = self.textControls1_rect.midtop
         self.textControls2_shadow_rect.midtop = self.textControls2_rect.midtop
-        self.textControls1_shadow_rect=self.textControls1_shadow_rect.move(+1,+1)
-        self.textControls2_shadow_rect=self.textControls2_shadow_rect.move(+1,+1)
+        self.textControls1_shadow_rect=self.textControls1_shadow_rect.move(-1,+1)
+        self.textControls2_shadow_rect=self.textControls2_shadow_rect.move(-1,+1)
         
         
         self.startBtn = pygame.image.load('images/startBtn.png')

@@ -58,6 +58,12 @@ class GameScene(pygame.sprite.Sprite):
         self.image.blit(self.textDH, self.textDH_rect)
         self.image.blit(self.textBH, self.textBH_rect)
         
+        #sounds
+        self.zombieEats=pygame.mixer.Sound(file='audio/neck_snap.ogg')
+        self.zombieDies=pygame.mixer.Sound(file='audio/kung_fu_punch.ogg')
+        self.daddyDies=pygame.mixer.Sound(file='audio/Gag.ogg')
+        self.whoosh=pygame.mixer.Sound(file='audio/Woosh.ogg')
+        
     def startGame(self):
         #score
         self.numDP=0
@@ -83,6 +89,8 @@ class GameScene(pygame.sprite.Sprite):
         self.enemyGroup=pygame.sprite.Group()
         #projectiles!
         self.projectileGroup=pygame.sprite.Group()
+        #sound volumes
+        self.zombieEats.set_volume(.1)
         
     def launchEnemy(self):
         self.enemy=Enemy()
@@ -90,11 +98,13 @@ class GameScene(pygame.sprite.Sprite):
         self.enemyGroup.draw(self.image)
       
     def shootDaddy(self):
+        if pygame.mixer.music.get_volume():pygame.mixer.Sound.play(self.whoosh)
         self.projectile=Projectile(self.daddy.direction, self.daddy.rect)
         self.projectileGroup.add(self.projectile)
         self.projectileGroup.draw(self.image)
     
     def daddyDown(self):
+        if pygame.mixer.music.get_volume():pygame.mixer.Sound.play(self.daddyDies)
         self.daddy=Daddy()
         self.daddy.direction=SOUTH
         self.daddy.moveDaddy([STAND,STAND_S], self.baby.rect)
@@ -114,7 +124,7 @@ class GameScene(pygame.sprite.Sprite):
         for i in range(int(self.numBH)):
             self.babyHealthString=self.babyHealthString+'▓'
         self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, PINK, WHITE)
-        #print(self.numBH)
+        if pygame.mixer.music.get_volume():pygame.mixer.Sound.play(self.zombieEats)
 
     def update(self):
         #update the HUD
@@ -140,6 +150,7 @@ class GameScene(pygame.sprite.Sprite):
             #did you hit the zombie?
             for enemies in iter(self.enemyGroup):
                 if pygame.sprite.collide_mask(projectiles, enemies):
+                    if pygame.mixer.music.get_volume():pygame.mixer.Sound.play(self.zombieDies)
                     self.projectileGroup.remove(projectiles)
                     self.enemyGroup.remove(enemies)
                     self.numDP+=1

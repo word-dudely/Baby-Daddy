@@ -41,6 +41,8 @@ def main():
     #and the program container
     spriteContainer=pygame.sprite.GroupSingle()
     
+    
+    
     def toggleSound():
         soundOn=pygame.mixer.music.get_volume()
         if soundOn:
@@ -87,6 +89,7 @@ def main():
         spriteContainer.draw(screen_surface)
         screen.blit(screen_surface, (0,0))
         pygame.time.set_timer(USEREVENT+1, 0)
+        changeMusic('Sad_Male.ogg')
         pygame.display.flip()
         
         
