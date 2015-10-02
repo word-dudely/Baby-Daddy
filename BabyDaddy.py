@@ -129,7 +129,7 @@ def main():
             soundBtnContainer.draw(screen_surface)  
             screen.blit(screen_surface, (0,0))
             pygame.display.flip()
-            if game.numDH==0:
+            if ((game.numDH==0) | (game.numBH<=0)):
                 gameState=MAIN_MENU
                 createMenu()
                 print(GAME_OVER)

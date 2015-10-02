@@ -37,6 +37,6 @@ class Enemy(pygame.sprite.Sprite):
             self.rect=self.rect.move((SCREEN_WIDTH, random.random()*(SCREEN_HEIGHT-self.rect.width)))
             self.speed=[-1,0]
             
-    def update(self, baby_rect):
+    def update(self):
         self.rect=self.rect.move(self.speed)
             
