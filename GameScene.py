@@ -118,7 +118,7 @@ class GameScene(pygame.sprite.Sprite):
         for i in range(int(self.numBH)):
             self.babyHealthString=self.babyHealthString+'▓'
         self.textBH = self.font.render(BABIES_LABEL+self.babyHealthString, True, BLACK, WHITE)
-        print(self.numBH)
+        #print(self.numBH)
 
     def update(self):
         #update the HUD
