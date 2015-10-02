@@ -20,10 +20,10 @@ class GameScene(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         
         self.numDP=0
-        self.numDH=5
-        self.heartString='♥♥♥♥♥'
+        self.numDH=3
+        self.heartString='♥♥♥'
         self.numBH=5
-        self.babyHealthString='▓▓▓▓▓'
+        self.babyHealthString='▓▓▓▓▓▓'
         
         self.background = pygame.image.load('images/hardwoodFloor.jpg')
         self.background_rect=self.background.get_rect()
@@ -47,7 +47,7 @@ class GameScene(pygame.sprite.Sprite):
         self.textDH_rect = self.textDH.get_rect()
         self.textDH_rect.topleft = self.rect.topleft
         self.textDH_rect=self.textDH_rect.move(+2,+2)
-        self.textBH = self.font.render(BABIES_LABEL+self.babyHealthString, True, BLACK, WHITE)
+        self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, BLACK, WHITE)
         self.textBH_rect = self.textBH.get_rect()
         self.textBH_rect.topright = self.rect.topright
         self.textBH_rect=self.textBH_rect.move(-2,+2)
@@ -61,11 +61,11 @@ class GameScene(pygame.sprite.Sprite):
     def startGame(self):
         #score
         self.numDP=0
-        self.numDH=5
-        self.heartString='♥♥♥♥♥'
+        self.numDH=3
+        self.heartString='♥♥♥'
         self.numBH=5
-        self.babyHealthString='▓▓▓▓▓'
-        self.textBH = self.font.render(BABIES_LABEL+self.babyHealthString, True, BLACK, WHITE)
+        self.babyHealthString='▓▓▓▓▓▓'
+        self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, BLACK, WHITE)
         #daddy 
         self.daddy=Daddy()
         self.daddy.rect.center = self.rect.center
@@ -81,8 +81,6 @@ class GameScene(pygame.sprite.Sprite):
             self.babySprite.draw(self.image)
         #enemies!
         self.enemyGroup=pygame.sprite.Group()
-        self.launchEnemy()
-        self.launchEnemy()
         #projectiles!
         self.projectileGroup=pygame.sprite.Group()
         
@@ -109,15 +107,13 @@ class GameScene(pygame.sprite.Sprite):
         self.daddy.rect.center = self.rect.center
         self.daddySprite=pygame.sprite.GroupSingle(self.daddy)
         self.daddySprite.draw(self.image)
-        self.launchEnemy()
-        self.launchEnemy()
         
     def babyHealthDecrease(self):
         self.numBH-=.005
-        self.babyHealthString=''
+        self.babyHealthString='▓'
         for i in range(int(self.numBH)):
             self.babyHealthString=self.babyHealthString+'▓'
-        self.textBH = self.font.render(BABIES_LABEL+self.babyHealthString, True, BLACK, WHITE)
+        self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, BLACK, WHITE)
         #print(self.numBH)
 
     def update(self):
@@ -132,7 +128,6 @@ class GameScene(pygame.sprite.Sprite):
         for enemies in iter(self.enemyGroup):
             if ((enemies.rect.left > SCREEN_WIDTH) | (enemies.rect.right < 0) | (enemies.rect.bottom < 0) | (enemies.rect.top > SCREEN_HEIGHT)):
                 self.enemyGroup.remove(enemies)
-                self.launchEnemy()
             if pygame.sprite.collide_mask(enemies, self.daddy):
                 self.daddyDown()
             if not pygame.sprite.collide_mask(enemies, self.baby):
@@ -148,7 +143,6 @@ class GameScene(pygame.sprite.Sprite):
                     self.projectileGroup.remove(projectiles)
                     self.enemyGroup.remove(enemies)
                     self.numDP+=1
-                    self.launchEnemy()
             #did you leave the screen?
             if ((projectiles.rect.right<0) | (projectiles.rect.left>SCREEN_WIDTH) | (projectiles.rect.bottom<0) | (projectiles.rect.top>SCREEN_HEIGHT)):
                 self.projectileGroup.remove(projectiles)

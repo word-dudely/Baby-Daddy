@@ -61,6 +61,7 @@ def main():
         
         
     def createMenu():
+        pygame.time.set_timer(USEREVENT+1, 0)
         gameState=MAIN_MENU
         spriteContainer.add(menu)
         spriteContainer.draw(screen_surface)
@@ -78,6 +79,7 @@ def main():
         pygame.mixer.music.fadeout(50)
         changeMusic('babyDaddyMainLoop.wav')
         pygame.display.flip()
+        pygame.time.set_timer(USEREVENT+1, 1500)
         game.startGame()
         
         
@@ -123,6 +125,8 @@ def main():
                 else:
                     daddyState[0] = STAND
                     game.daddy.moveDaddy(daddyState, game.baby.rect)
+            if ((event.type==USEREVENT+1)&(gameState==GAME_ON)):
+                game.launchEnemy()
         if gameState==GAME_ON:
             game.update()
             spriteContainer.draw(screen_surface)
