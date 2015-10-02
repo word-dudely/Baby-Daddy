@@ -7,7 +7,7 @@ ICON='images/iconBaby.png'
 
 #sound
 GLOBAL_MUSIC_VOLUME=0.5
-SOUND_ENABLED=True
+SOUND_ENABLED=False
 
 
 #colors

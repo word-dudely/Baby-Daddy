@@ -8,6 +8,7 @@ from DynamicTexts import *
 from MainMenu import *
 from GameScene import *
 from SoundBtn import *
+from GameOver import *
 
 global gameState, daddyState
 
@@ -28,13 +29,14 @@ def main():
     #main game surface
     screen_surface = pygame.Surface(screen.get_size())
     screen_surface_rect = screen_surface.get_rect()
-    #prime the states
+    #states
     gameState=MAIN_MENU
     daddyState=[STAND,STAND_S]
     babyState=SLEEP
-    #birth my sprites
+    #sprites
     menu=MainMenu()
     game=GameScene()
+    gameOver=GameOver()
     soundBtn=SoundBtn()
     #and the program container
     spriteContainer=pygame.sprite.GroupSingle()
@@ -62,7 +64,6 @@ def main():
         
     def createMenu():
         pygame.time.set_timer(USEREVENT+1, 0)
-        gameState=MAIN_MENU
         spriteContainer.add(menu)
         spriteContainer.draw(screen_surface)
         soundBtnContainer.draw(screen_surface)
@@ -72,7 +73,6 @@ def main():
         changeMusic('babyDaddyHookRepeat.ogg')
         
     def startGame():
-        gameState=GAME_ON
         spriteContainer.add(game)
         spriteContainer.draw(screen_surface)
         screen.blit(screen_surface, (0,0))
@@ -81,6 +81,13 @@ def main():
         pygame.display.flip()
         pygame.time.set_timer(USEREVENT+1, 1500)
         game.startGame()
+    
+    def createGameOver():
+        spriteContainer.add(gameOver)
+        spriteContainer.draw(screen_surface)
+        screen.blit(screen_surface, (0,0))
+        pygame.time.set_timer(USEREVENT+1, 0)
+        pygame.display.flip()
         
         
     #display soundBtn
@@ -106,6 +113,9 @@ def main():
                     gameState=GAME_ON
                 if menu.exitBtn_rect.collidepoint(x,y):
                     sys.exit(0)
+            if ((event.type == MOUSEBUTTONDOWN) & (gameState==GAME_OVER)):
+                createMenu()
+                gameState=MAIN_MENU
             if ((event.type == KEYDOWN) & (gameState==GAME_ON)):
                 if (event.key == K_RIGHT) | (event.key == K_d):
                     daddyState = [WALK_E,STAND_E]
@@ -134,9 +144,8 @@ def main():
             screen.blit(screen_surface, (0,0))
             pygame.display.flip()
             if ((game.numDH==0) | (game.numBH<=0)):
-                gameState=MAIN_MENU
-                createMenu()
-                print(GAME_OVER)
+                createGameOver()
+                gameState=GAME_OVER
         
 
             
