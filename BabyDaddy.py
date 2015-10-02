@@ -7,6 +7,7 @@ from Constants import *
 from DynamicTexts import *
 from MainMenu import *
 from GameScene import *
+from SoundBtn import *
 
 global gameState, daddyState
 
@@ -18,13 +19,14 @@ def main():
     pygame.display.set_icon(pygame.image.load(ICON))
     pygame.display.set_caption(TITLE_BAR_TEXT)
     pygame.key.set_repeat(40,40)
-
+    #set the framrate
     clock = pygame.time.Clock()
     clock.tick(30)
-    
+    #set the initial volume based on the constants
+    if SOUND_ENABLED:pygame.mixer.music.set_volume(GLOBAL_MUSIC_VOLUME)
+    else:pygame.mixer.music.set_volume(0)
+    #main game surface
     screen_surface = pygame.Surface(screen.get_size())
-    screen_surface = screen_surface.convert()
-    screen_surface.fill(WHITE)
     screen_surface_rect = screen_surface.get_rect()
     #prime the states
     gameState=MAIN_MENU
@@ -33,14 +35,28 @@ def main():
     #birth my sprites
     menu=MainMenu()
     game=GameScene()
+    soundBtn=SoundBtn()
     #and the program container
     spriteContainer=pygame.sprite.GroupSingle()
     
+    def toggleSound():
+        soundOn=pygame.mixer.music.get_volume()
+        if soundOn:
+            pygame.mixer.music.set_volume(0)
+            soundBtn.image=pygame.image.load('images/sound_off.png')
+        else:
+            pygame.mixer.music.set_volume(GLOBAL_MUSIC_VOLUME)
+            soundBtn.image=pygame.image.load('images/sound_on.png')
+        spriteContainer.draw(screen_surface)
+        soundBtnContainer.draw(screen_surface) 
+        screen.blit(screen_surface, (0,0))
+        pygame.display.flip()
 
     def changeMusic(newTrack, volume=GLOBAL_MUSIC_VOLUME):
+        soundOn=pygame.mixer.music.get_volume()
         pygame.mixer.music.load('audio/'+newTrack)
         pygame.mixer.music.play(-1)
-        if (SOUND_ENABLED):pygame.mixer.music.set_volume(volume)
+        if (soundOn):pygame.mixer.music.set_volume(volume)
         else:pygame.mixer.music.set_volume(0)
         
         
@@ -48,6 +64,7 @@ def main():
         gameState=MAIN_MENU
         spriteContainer.add(menu)
         spriteContainer.draw(screen_surface)
+        soundBtnContainer.draw(screen_surface)
         screen.blit(screen_surface, (0,0))
         pygame.mixer.music.fadeout(50)
         pygame.display.flip()
@@ -64,7 +81,10 @@ def main():
         game.startGame()
         
         
-        
+    #display soundBtn
+    soundBtn.rect.bottomright = screen_surface_rect.bottomright
+    soundBtn.rect=soundBtn.rect.move(-15,-15)
+    soundBtnContainer=pygame.sprite.GroupSingle(soundBtn)  
     #display menu
     createMenu()
     
@@ -73,6 +93,10 @@ def main():
         for event in pygame.event.get():
             if event.type == QUIT:
                 sys.exit(0)
+            if event.type == MOUSEBUTTONDOWN:
+                x,y = event.pos
+                if soundBtn.rect.collidepoint(x,y):
+                    toggleSound()
             if ((event.type == MOUSEBUTTONDOWN) & (gameState==MAIN_MENU)):
                 x,y = event.pos
                 if menu.startBtn_rect.collidepoint(x,y):
@@ -102,6 +126,7 @@ def main():
         if gameState==GAME_ON:
             game.update()
             spriteContainer.draw(screen_surface)
+            soundBtnContainer.draw(screen_surface)  
             screen.blit(screen_surface, (0,0))
             pygame.display.flip()
             if game.numDH==0:

@@ -17,13 +17,13 @@ class MainMenu(pygame.sprite.Sprite):
         self.image = pygame.Surface(SCREEN_SIZE)
         self.image.fill(PINK)
         self.rect=self.image.get_rect()
-        self.logo = pygame.image.load('images/logo.png').convert_alpha()
+        self.logo = pygame.image.load('images/logo.png')
         self.logo_rect = self.logo.get_rect()
         self.logo_rect.midtop = self.rect.midtop
         self.logo_rect=self.logo_rect.move(0,+25)
-        self.startBtn = pygame.image.load('images/startBtn.png').convert_alpha()
+        self.startBtn = pygame.image.load('images/startBtn.png')
         self.startBtn_rect = self.startBtn.get_rect()
-        self.exitBtn = pygame.image.load('images/exitBtn.png').convert_alpha()
+        self.exitBtn = pygame.image.load('images/exitBtn.png')
         self.exitBtn_rect = self.exitBtn.get_rect()
         self.startBtn_rect.midbottom = self.rect.midbottom
         self.startBtn_rect = self.startBtn_rect.move(-150,-10)
