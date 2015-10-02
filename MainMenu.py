@@ -14,8 +14,9 @@ class MainMenu(pygame.sprite.Sprite):
         pygame.init()
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.Surface(SCREEN_SIZE)
-        self.image.fill(PINK)
+        #self.image = pygame.Surface(SCREEN_SIZE)
+        #self.image.fill(PINK)
+        self.image = pygame.image.load('images/hardwoodFloor.jpg')
         self.rect=self.image.get_rect()
         self.logo = pygame.image.load('images/logo.png')
         self.logo_rect = self.logo.get_rect()
