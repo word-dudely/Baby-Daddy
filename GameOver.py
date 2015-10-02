@@ -24,7 +24,7 @@ class GameOver(pygame.sprite.Sprite):
         self.fontSmall = pygame.font.Font('fonts/arialbd.ttf', 22)
         
         
-        self.textGameOver1=self.fontBig.render(END_GAME_TEXT1, True, WHITE)
+        self.textGameOver1=self.fontBig.render(END_GAME_TEXT1, True, PINK)
         self.textGameOver1_rect=self.textGameOver1.get_rect()
         self.textGameOver1_rect.center=self.rect.center
         self.textGameOver1_rect=self.textGameOver1_rect.move(0,-100)

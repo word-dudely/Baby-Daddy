@@ -13,7 +13,7 @@ SOUND_ENABLED=False
 #colors
 BLACK = (0,0,0)
 WHITE = (255, 255, 255)
-PINK = (255, 157, 175)
+PINK = (166, 55, 131)
 
 #game states
 MAIN_MENU='main menu'

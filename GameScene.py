@@ -43,11 +43,11 @@ class GameScene(pygame.sprite.Sprite):
         self.textDP_rect = self.textDP.get_rect()
         self.textDP_rect.midtop = self.rect.midtop
         self.textDP_rect=self.textDP_rect.move(0,+2)
-        self.textDH = self.font.render(DADDY_HEARTS_LABEL+self.heartString, True, BLACK, WHITE)
+        self.textDH = self.font.render(DADDY_HEARTS_LABEL+self.heartString, True, PINK, WHITE)
         self.textDH_rect = self.textDH.get_rect()
         self.textDH_rect.topleft = self.rect.topleft
         self.textDH_rect=self.textDH_rect.move(+2,+2)
-        self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, BLACK, WHITE)
+        self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, PINK, WHITE)
         self.textBH_rect = self.textBH.get_rect()
         self.textBH_rect.topright = self.rect.topright
         self.textBH_rect=self.textBH_rect.move(-2,+2)
@@ -65,7 +65,7 @@ class GameScene(pygame.sprite.Sprite):
         self.heartString='♥♥♥'
         self.numBH=5
         self.babyHealthString='▓▓▓▓▓▓'
-        self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, BLACK, WHITE)
+        self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, PINK, WHITE)
         #daddy 
         self.daddy=Daddy()
         self.daddy.rect.center = self.rect.center
@@ -113,13 +113,13 @@ class GameScene(pygame.sprite.Sprite):
         self.babyHealthString='▓'
         for i in range(int(self.numBH)):
             self.babyHealthString=self.babyHealthString+'▓'
-        self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, BLACK, WHITE)
+        self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, PINK, WHITE)
         #print(self.numBH)
 
     def update(self):
         #update the HUD
         self.textDP = self.font.render(DADDY_POINTS_LABEL+str(self.numDP), True, BLACK, WHITE)
-        self.textDH = self.font.render(DADDY_HEARTS_LABEL+self.heartString, True, BLACK, WHITE)
+        self.textDH = self.font.render(DADDY_HEARTS_LABEL+self.heartString, True, PINK, WHITE)
         #redraw the scene
         self.image.blit(self.background, self.background_rect)
         self.daddySprite.draw(self.image)
