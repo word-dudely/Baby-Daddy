@@ -15,7 +15,8 @@ class MainMenu(pygame.sprite.Sprite):
         pygame.init()
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.image.load('images/hardwoodFloor.jpg')
+        self.background = pygame.image.load('images/hardwoodFloor.jpg')
+        self.image=pygame.Surface(SCREEN_SIZE)
         self.rect=self.image.get_rect()
         
         self.font = pygame.font.Font('fonts/ARBUCKLE.TTF', 22)
@@ -31,6 +32,8 @@ class MainMenu(pygame.sprite.Sprite):
         self.logo = pygame.image.load('images/logo.png')
         self.logo_rect = self.logo.get_rect()
         self.logo_rect.midtop = self.rect.midtop
+        
+        self.logo_anim=['images/logo_01.png','images/logo_02.png','images/logo_03.png','images/logo_04.png','images/logo_05.png','images/logo_06.png','images/logo_07.png']
         
         self.textControls1_rect.midtop = self.logo_rect.midbottom
         self.textControls1_rect=self.textControls1_rect.move(0,-3)
@@ -50,6 +53,22 @@ class MainMenu(pygame.sprite.Sprite):
         self.startBtn_rect = self.startBtn_rect.move(-150,-10)
         self.exitBtn_rect.midbottom = self.rect.midbottom
         self.exitBtn_rect = self.exitBtn_rect.move(+150,-10)
+        self.image.blit(self.background, self.rect)
+        self.image.blit(self.textControls1_shadow, self.textControls1_shadow_rect)
+        self.image.blit(self.textControls2_shadow, self.textControls2_shadow_rect)
+        self.image.blit(self.textControls1, self.textControls1_rect)
+        self.image.blit(self.textControls2, self.textControls2_rect)
+        self.image.blit(self.logo, self.logo_rect)
+        self.image.blit(self.startBtn, self.startBtn_rect)
+        self.image.blit(self.exitBtn, self.exitBtn_rect)
+        self.i=0
+        
+    def update(self):
+        #print(self.i)
+        self.logo=pygame.image.load(self.logo_anim[self.i])
+        if (self.i<(len(self.logo_anim)-1)):self.i+=1
+        else: self.i=0
+        self.image.blit(self.background, self.rect)
         self.image.blit(self.textControls1_shadow, self.textControls1_shadow_rect)
         self.image.blit(self.textControls2_shadow, self.textControls2_shadow_rect)
         self.image.blit(self.textControls1, self.textControls1_rect)

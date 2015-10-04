@@ -140,6 +140,13 @@ def main():
                     game.daddy.moveDaddy(daddyState, game.baby.rect)
             if ((event.type==USEREVENT+1)&(gameState==GAME_ON)):
                 game.launchEnemy()
+        if gameState==MAIN_MENU:
+            pygame.time.delay(200)
+            menu.update()
+            spriteContainer.draw(screen_surface)
+            soundBtnContainer.draw(screen_surface)  
+            screen.blit(screen_surface, (0,0))
+            pygame.display.flip()
         if gameState==GAME_ON:
             game.update()
             spriteContainer.draw(screen_surface)
