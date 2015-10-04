@@ -9,7 +9,6 @@ ICON='images/iconBaby.png'
 GLOBAL_MUSIC_VOLUME=0.5
 SOUND_ENABLED=True
 
-
 #colors
 BLACK = (0,0,0)
 WHITE = (255, 255, 255)
