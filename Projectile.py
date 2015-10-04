@@ -21,18 +21,18 @@ class Projectile(pygame.sprite.Sprite):
         self.direction=direction
         
         if self.direction==NORTH:
-            self.rect.midbottom=daddy_rect.midtop
+            self.rect.midbottom=daddy_rect.center
         if self.direction==EAST:
             self.image=pygame.transform.rotate(self.image, 270)
             self.rect=self.image.get_rect()
-            self.rect.midleft=daddy_rect.midright
+            self.rect.midleft=daddy_rect.center
         if self.direction==SOUTH:
             self.image=pygame.transform.flip(self.image, False, True)
-            self.rect.midtop=daddy_rect.midbottom
+            self.rect.midtop=daddy_rect.center
         if self.direction==WEST:
             self.image=pygame.transform.rotate(self.image, 90)
             self.rect=self.image.get_rect()
-            self.rect.midright=daddy_rect.midleft
+            self.rect.midright=daddy_rect.center
         
     def update(self):
         if self.direction==NORTH:
