@@ -22,7 +22,7 @@ class Daddy(pygame.sprite.Sprite):
         self.image = pygame.image.load('images/daddy/daddy_s02.png')
         self.rect = self.image.get_rect()
         
-        self.walk_n_anim = ['images/daddy/daddy_n01.png', 'images/daddy/daddy_n02.png','images/daddy/daddy_n03.png','images/daddy/daddy_n04.png','images/daddy/daddy_n05.png','images/daddy/daddy_n06.png','images/daddy/daddy_n07.png','images/daddy/daddy_n08.png']
+        self.walk_n_anim = ['images/daddy/daddy_n01.png', 'images/daddy/daddy_n02.png','images/daddy/daddy_n03.png','images/daddy/daddy_n04.png','images/daddy/daddy_n05.png','images/daddy/daddy_n06.png']
         
         self.walk_e_anim = ['images/daddy/daddy_e01.png', 'images/daddy/daddy_e02.png','images/daddy/daddy_e03.png','images/daddy/daddy_e04.png','images/daddy/daddy_e05.png','images/daddy/daddy_e06.png']
         
@@ -71,7 +71,7 @@ class Daddy(pygame.sprite.Sprite):
                 else:
                     self.i=0
         if (state[0] == STAND):
-            if state[1]==STAND_N:self.image=pygame.image.load('images/daddy/daddy_n05.png')
+            if state[1]==STAND_N:self.image=pygame.image.load('images/daddy/daddy_n06.png')
             if state[1]==STAND_E:self.image=pygame.image.load('images/daddy/daddy_e04.png')
             if state[1]==STAND_S:self.image=pygame.image.load('images/daddy/daddy_s02.png')
             if state[1]==STAND_W:
