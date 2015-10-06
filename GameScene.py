@@ -159,6 +159,7 @@ class GameScene(pygame.sprite.Sprite):
                 self.projectileGroup.remove(projectiles)
         self.projectileGroup.update()
         self.projectileGroup.draw(self.image)
+        self.baby.update()
         self.image.blit(self.HUD_shadow, self.HUD_shadow_rect)
         self.image.blit(self.HUD, self.HUD_rect)
         self.image.blit(self.textDP, self.textDP_rect)
