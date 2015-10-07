@@ -23,6 +23,8 @@ class Enemy(pygame.sprite.Sprite):
         
         self.i=0
         
+        self.zombie_anim_s=['images/zombie/zombie_s01.png', 'images/zombie/zombie_s01.png', 'images/zombie/zombie_s01.png', 'images/zombie/zombie_s01.png', 'images/zombie/zombie_s01.png', 'images/zombie/zombie_s01.png', 'images/zombie/zombie_s02.png', 'images/zombie/zombie_s02.png', 'images/zombie/zombie_s02.png', 'images/zombie/zombie_s02.png', 'images/zombie/zombie_s01.png', 'images/zombie/zombie_s01.png', 'images/zombie/zombie_s01.png', 'images/zombie/zombie_s01.png', 'images/zombie/zombie_s01.png', 'images/zombie/zombie_s01.png', 'images/zombie/zombie_s04.png', 'images/zombie/zombie_s04.png', 'images/zombie/zombie_s04.png', 'images/zombie/zombie_s04.png']
+        
         self.zombie_anim_w=['images/zombie/zombie_w01.png', 'images/zombie/zombie_w01.png', 'images/zombie/zombie_w01.png', 'images/zombie/zombie_w01.png', 'images/zombie/zombie_w02.png', 'images/zombie/zombie_w02.png', 'images/zombie/zombie_w02.png', 'images/zombie/zombie_w02.png', 'images/zombie/zombie_w03.png', 'images/zombie/zombie_w03.png',  'images/zombie/zombie_w03.png', 'images/zombie/zombie_w03.png', 'images/zombie/zombie_w04.png', 'images/zombie/zombie_w04.png', 'images/zombie/zombie_w04.png', 'images/zombie/zombie_w04.png']
         
         if (self.direction==MOVE_N):
@@ -42,6 +44,10 @@ class Enemy(pygame.sprite.Sprite):
             self.speed=[-1,0]
             
     def update(self):
+        if self.direction==MOVE_S:
+            if self.i<(len(self.zombie_anim_s)-1): self.i+=1
+            else: self.i=0
+            self.image=pygame.image.load(self.zombie_anim_s[self.i]).convert_alpha()
         if self.direction==MOVE_W:
             if self.i<(len(self.zombie_anim_w)-1): self.i+=1
             else: self.i=0
