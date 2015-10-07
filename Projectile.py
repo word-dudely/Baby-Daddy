@@ -16,7 +16,7 @@ class Projectile(pygame.sprite.Sprite):
         
         #self.image = pygame.Surface((15,30))
         #self.image.fill(WHITE)
-        self.image=pygame.image.load('images/bottle.png')
+        self.image=pygame.image.load('images/bottle.png').convert_alpha()
         self.rect = self.image.get_rect()
         self.direction=direction
         

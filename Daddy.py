@@ -19,7 +19,7 @@ class Daddy(pygame.sprite.Sprite):
         self.speed = 8
         self.direction = SOUTH
         
-        self.image = pygame.image.load('images/daddy/daddy_s02.png')
+        self.image = pygame.image.load('images/daddy/daddy_s02.png').convert_alpha()
         self.rect = self.image.get_rect()
         
         self.walk_n_anim = ['images/daddy/daddy_n01.png', 'images/daddy/daddy_n02.png','images/daddy/daddy_n03.png','images/daddy/daddy_n04.png','images/daddy/daddy_n05.png','images/daddy/daddy_n06.png']
@@ -38,7 +38,7 @@ class Daddy(pygame.sprite.Sprite):
             if (((self.rect.bottom < baby_rect.top) | (self.rect.top > baby_rect.bottom)) | ((self.rect.right + self.speed < baby_rect.left) | (self.rect.left + self.speed > baby_rect.right))):
                 self.rect.left += self.speed
                 if (self.i<len(self.walk_e_anim)):
-                    self.image = pygame.image.load(self.walk_e_anim[self.i])
+                    self.image = pygame.image.load(self.walk_e_anim[self.i]).convert_alpha()
                     self.i+=1
                 else:
                     self.i=0
@@ -47,7 +47,7 @@ class Daddy(pygame.sprite.Sprite):
             if (((self.rect.left > baby_rect.right) | (self.rect.right < baby_rect.left)) | ((self.rect.bottom + self.speed < baby_rect.top) | (self.rect.top + self.speed > baby_rect.bottom))):
                 self.rect.top += self.speed
                 if (self.i<len(self.walk_s_anim)):
-                    self.image = pygame.image.load(self.walk_s_anim[self.i])
+                    self.image = pygame.image.load(self.walk_s_anim[self.i]).convert_alpha()
                     self.i+=1
                 else:
                     self.i=0
@@ -56,7 +56,7 @@ class Daddy(pygame.sprite.Sprite):
             if (((self.rect.bottom < baby_rect.top) | (self.rect.top > baby_rect.bottom)) | ((self.rect.left - self.speed > baby_rect.right) | (self.rect.right - self.speed < baby_rect.left))):
                 self.rect.left -= self.speed
                 if (self.i<len(self.walk_e_anim)):
-                    self.image = pygame.image.load(self.walk_e_anim[self.i])
+                    self.image = pygame.image.load(self.walk_e_anim[self.i]).convert_alpha()
                     self.image=pygame.transform.flip(self.image, True, False)
                     self.i+=1
                 else:
@@ -66,14 +66,14 @@ class Daddy(pygame.sprite.Sprite):
             if (((self.rect.bottom - self.speed < baby_rect.top) | (self.rect.top - self.speed > baby_rect.bottom)) | ((self.rect.left > baby_rect.right) | (self.rect.right < baby_rect.left))):
                 self.rect.top -= self.speed
                 if (self.i<len(self.walk_n_anim)):
-                    self.image = pygame.image.load(self.walk_n_anim[self.i])
+                    self.image = pygame.image.load(self.walk_n_anim[self.i]).convert_alpha()
                     self.i+=1
                 else:
                     self.i=0
         if (state[0] == STAND):
-            if state[1]==STAND_N:self.image=pygame.image.load('images/daddy/daddy_n06.png')
-            if state[1]==STAND_E:self.image=pygame.image.load('images/daddy/daddy_e04.png')
-            if state[1]==STAND_S:self.image=pygame.image.load('images/daddy/daddy_s02.png')
+            if state[1]==STAND_N:self.image=pygame.image.load('images/daddy/daddy_n06.png').convert_alpha()
+            if state[1]==STAND_E:self.image=pygame.image.load('images/daddy/daddy_e04.png').convert_alpha()
+            if state[1]==STAND_S:self.image=pygame.image.load('images/daddy/daddy_s02.png').convert_alpha()
             if state[1]==STAND_W:
-                self.image=pygame.image.load('images/daddy/daddy_e04.png')
+                self.image=pygame.image.load('images/daddy/daddy_e04.png').convert_alpha()
                 self.image=pygame.transform.flip(self.image, True, False)

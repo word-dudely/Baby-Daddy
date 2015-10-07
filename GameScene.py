@@ -25,7 +25,7 @@ class GameScene(pygame.sprite.Sprite):
         self.numBH=5
         self.babyHealthString='▓▓▓▓▓▓'
         
-        self.background = pygame.image.load('images/hardwoodFloor.jpg')
+        self.background = pygame.image.load('images/hardwoodFloor.jpg').convert()
         self.background_rect=self.background.get_rect()
         self.image = pygame.Surface(SCREEN_SIZE)
         self.rect=self.image.get_rect()

@@ -47,10 +47,10 @@ def main():
         soundOn=pygame.mixer.music.get_volume()
         if soundOn:
             pygame.mixer.music.set_volume(0)
-            soundBtn.image=pygame.image.load('images/sound_off.png')
+            soundBtn.image=pygame.image.load('images/sound_off.png').convert_alpha()
         else:
             pygame.mixer.music.set_volume(GLOBAL_MUSIC_VOLUME)
-            soundBtn.image=pygame.image.load('images/sound_on.png')
+            soundBtn.image=pygame.image.load('images/sound_on.png').convert_alpha()
         spriteContainer.draw(screen_surface)
         soundBtnContainer.draw(screen_surface) 
         screen.blit(screen_surface, (0,0))

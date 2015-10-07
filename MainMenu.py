@@ -15,7 +15,7 @@ class MainMenu(pygame.sprite.Sprite):
         pygame.init()
         pygame.sprite.Sprite.__init__(self)
 
-        self.background = pygame.image.load('images/hardwoodFloor.jpg')
+        self.background = pygame.image.load('images/hardwoodFloor.jpg').convert()
         self.image=pygame.Surface(SCREEN_SIZE)
         self.rect=self.image.get_rect()
         
@@ -29,7 +29,7 @@ class MainMenu(pygame.sprite.Sprite):
         self.textControls2_shadow = self.font.render(CONTROLS2, True, BLACK)
         self.textControls2_shadow_rect = self.textControls2_shadow.get_rect()
         
-        self.logo = pygame.image.load('images/logo.png')
+        self.logo = pygame.image.load('images/logo.png').convert_alpha()
         self.logo_rect = self.logo.get_rect()
         self.logo_rect.midtop = self.rect.midtop
         
@@ -45,9 +45,9 @@ class MainMenu(pygame.sprite.Sprite):
         self.textControls2_shadow_rect=self.textControls2_shadow_rect.move(-1,+1)
         
         
-        self.startBtn = pygame.image.load('images/startBtn.png')
+        self.startBtn = pygame.image.load('images/startBtn.png').convert_alpha()
         self.startBtn_rect = self.startBtn.get_rect()
-        self.exitBtn = pygame.image.load('images/exitBtn.png')
+        self.exitBtn = pygame.image.load('images/exitBtn.png').convert_alpha()
         self.exitBtn_rect = self.exitBtn.get_rect()
         self.startBtn_rect.midbottom = self.rect.midbottom
         self.startBtn_rect = self.startBtn_rect.move(-150,-10)
@@ -65,7 +65,7 @@ class MainMenu(pygame.sprite.Sprite):
         
     def update(self):
         #print(self.i)
-        self.logo=pygame.image.load(self.logo_anim[self.i])
+        self.logo=pygame.image.load(self.logo_anim[self.i]).convert_alpha()
         if (self.i<(len(self.logo_anim)-1)):self.i+=1
         else: self.i=0
         self.image.blit(self.background, self.rect)
