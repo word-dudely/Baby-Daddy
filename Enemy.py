@@ -21,6 +21,10 @@ class Enemy(pygame.sprite.Sprite):
         self.speed = [0,0]
         self.direction = random.sample([MOVE_N, MOVE_E, MOVE_S, MOVE_W], 1)[0]
         
+        self.i=0
+        
+        self.zombie_anim_w=['images/zombie/zombie_w01.png', 'images/zombie/zombie_w01.png', 'images/zombie/zombie_w01.png', 'images/zombie/zombie_w01.png', 'images/zombie/zombie_w02.png', 'images/zombie/zombie_w02.png', 'images/zombie/zombie_w02.png', 'images/zombie/zombie_w02.png', 'images/zombie/zombie_w03.png', 'images/zombie/zombie_w03.png',  'images/zombie/zombie_w03.png', 'images/zombie/zombie_w03.png', 'images/zombie/zombie_w04.png', 'images/zombie/zombie_w04.png', 'images/zombie/zombie_w04.png', 'images/zombie/zombie_w04.png']
+        
         if (self.direction==MOVE_N):
             self.rect=self.rect.move((random.random()*(SCREEN_WIDTH-self.rect.width),SCREEN_HEIGHT))
             self.image = pygame.transform.rotate(self.image, -90)
@@ -38,5 +42,14 @@ class Enemy(pygame.sprite.Sprite):
             self.speed=[-1,0]
             
     def update(self):
+        if self.direction==MOVE_W:
+            if self.i<(len(self.zombie_anim_w)-1): self.i+=1
+            else: self.i=0
+            self.image=pygame.image.load(self.zombie_anim_w[self.i]).convert_alpha()
+        if self.direction==MOVE_E:
+            if self.i<(len(self.zombie_anim_w)-1): self.i+=1
+            else: self.i=0
+            self.image=pygame.image.load(self.zombie_anim_w[self.i]).convert_alpha()
+            self.image = pygame.transform.flip(self.image, True, False)
         self.rect=self.rect.move(self.speed)
             
