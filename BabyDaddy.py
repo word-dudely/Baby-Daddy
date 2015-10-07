@@ -22,7 +22,7 @@ def main():
     pygame.key.set_repeat(40,40)
     #set the framrate
     clock = pygame.time.Clock()
-    clock.tick(30)
+    clock.tick(60)
     #set the initial volume based on the constants
     if SOUND_ENABLED:pygame.mixer.music.set_volume(GLOBAL_MUSIC_VOLUME)
     else:pygame.mixer.music.set_volume(0)
