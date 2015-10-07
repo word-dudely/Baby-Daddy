@@ -51,5 +51,7 @@ class Enemy(pygame.sprite.Sprite):
             else: self.i=0
             self.image=pygame.image.load(self.zombie_anim_w[self.i]).convert_alpha()
             self.image = pygame.transform.flip(self.image, True, False)
+        
+    def move(self):
         self.rect=self.rect.move(self.speed)
             

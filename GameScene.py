@@ -141,9 +141,10 @@ class GameScene(pygame.sprite.Sprite):
             if pygame.sprite.collide_mask(enemies, self.daddy):
                 self.daddyDown()
             if not pygame.sprite.collide_mask(enemies, self.baby):
-                enemies.update()
+                enemies.move()
             if pygame.sprite.collide_mask(enemies, self.baby):
                 self.babyHealthDecrease()
+        self.enemyGroup.update()
         self.enemyGroup.draw(self.image)
         #projectiles
         for projectiles in iter(self.projectileGroup):
