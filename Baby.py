@@ -15,14 +15,14 @@ class Baby(pygame.sprite.Sprite):
         pygame.init()
         pygame.sprite.Sprite.__init__(self)
         
-        self.image = pygame.image.load('images/crib.png')
+        self.image = pygame.image.load('images/crib.png').convert_alpha()
         self.rect = self.image.get_rect()
         self.rect = self.rect.move((random.random()*(SCREEN_WIDTH-self.rect.width)), (random.random()*(SCREEN_HEIGHT-self.rect.height)))
         
-        self.crib=pygame.image.load('images/crib.png')
+        self.crib=pygame.image.load('images/crib.png').convert_alpha()
         self.crib_rect=self.crib.get_rect()
         self.baby_idle_anim = ['images/baby/baby_00.png', 'images/baby/baby_01.png']        
-        self.baby = pygame.image.load('images/baby/baby_00.png')
+        self.baby = pygame.image.load('images/baby/baby_00.png').convert_alpha()
         self.baby_rect= self.baby.get_rect()
         self.baby_rect=self.baby_rect.move(0,+50)
         self.image.blit(self.baby, self.baby_rect)
@@ -32,6 +32,6 @@ class Baby(pygame.sprite.Sprite):
         if self.i<(len(self.baby_idle_anim)-1):
             self.i+=1
         else: self.i=0
-        self.baby = pygame.image.load(self.baby_idle_anim[self.i])
+        self.baby = pygame.image.load(self.baby_idle_anim[self.i]).convert_alpha()
         self.image.blit(self.crib, self.crib_rect)
         self.image.blit(self.baby, self.baby_rect)
