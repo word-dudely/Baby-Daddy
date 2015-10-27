@@ -20,7 +20,7 @@ def main():
     pygame.display.set_icon(pygame.image.load(ICON))
     pygame.display.set_caption(TITLE_BAR_TEXT)
     pygame.key.set_repeat(40,40)
-    #set the framrate
+    #load the clock for the timerate
     clock = pygame.time.Clock()
     #set the initial volume based on the constants
     if SOUND_ENABLED:pygame.mixer.music.set_volume(GLOBAL_MUSIC_VOLUME)
@@ -30,8 +30,8 @@ def main():
     screen_surface_rect = screen_surface.get_rect()
     #states
     gameState=MAIN_MENU
-    daddyState=[STAND,STAND_S]
-    babyState=SLEEP
+    daddyState=[STAND,SOUTH]
+    babyState=IDLE
     #sprites
     menu=MainMenu()
     game=GameScene()
@@ -120,13 +120,13 @@ def main():
                 gameState=MAIN_MENU
             if ((event.type == KEYDOWN) & (gameState==GAME_ON)):
                 if (event.key == K_RIGHT) | (event.key == K_d):
-                    daddyState = [WALK_E,STAND_E]
+                    daddyState = [WALK,EAST]
                 if (event.key == K_DOWN) | (event.key == K_s):
-                    daddyState = [WALK_S,STAND_S]
+                    daddyState = [WALK,SOUTH]
                 if (event.key == K_LEFT) | (event.key == K_a):
-                    daddyState = [WALK_W,STAND_W]
+                    daddyState = [WALK,WEST]
                 if (event.key == K_UP) | (event.key == K_w):
-                    daddyState = [WALK_N,STAND_N]
+                    daddyState = [WALK,NORTH]
                 game.daddy.moveDaddy(daddyState, game.baby.rect)
             if ((event.type == KEYUP) & (gameState==GAME_ON)):
                 if event.key == K_SPACE:

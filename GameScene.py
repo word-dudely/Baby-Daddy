@@ -107,7 +107,7 @@ class GameScene(pygame.sprite.Sprite):
         if pygame.mixer.music.get_volume():pygame.mixer.Sound.play(self.daddyDies)
         self.daddy=Daddy()
         self.daddy.direction=SOUTH
-        self.daddy.moveDaddy([STAND,STAND_S], self.baby.rect)
+        self.daddy.moveDaddy([STAND,SOUTH], self.baby.rect)
         self.enemyGroup.empty()
         self.projectileGroup.empty()
         self.numDH-=1

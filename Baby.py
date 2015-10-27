@@ -17,7 +17,7 @@ class Baby(pygame.sprite.Sprite):
         
         self.buffer=120
         
-        self.image = pygame.image.load('images/crib.png').convert_alpha()
+        self.image = pygame.image.load('images/baby/idle01.png').convert_alpha()
         self.rect = self.image.get_rect()
         self.rect = self.rect.move((random.random()*(SCREEN_WIDTH-(self.rect.width+self.buffer+self.buffer))), (random.random()*(SCREEN_HEIGHT-(self.rect.height+self.buffer+self.buffer))))
         self.rect=self.rect.move(+self.buffer,+self.buffer)

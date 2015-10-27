@@ -19,7 +19,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         self.speed = [0,0]
-        self.direction = random.sample([MOVE_N, MOVE_E, MOVE_S, MOVE_W], 1)[0]
+        self.direction = random.sample([NORTH, EAST, SOUTH, WEST], 1)[0]
         
         self.i=0
         
@@ -29,37 +29,37 @@ class Enemy(pygame.sprite.Sprite):
         
         self.zombie_anim_n=['images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n02.png', 'images/zombie/zombie_n02.png', 'images/zombie/zombie_n02.png', 'images/zombie/zombie_n02.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n01.png', 'images/zombie/zombie_n04.png', 'images/zombie/zombie_n04.png', 'images/zombie/zombie_n04.png', 'images/zombie/zombie_n04.png']
         
-        if (self.direction==MOVE_N):
+        if (self.direction==NORTH):
             self.rect=self.rect.move((random.random()*(SCREEN_WIDTH-self.rect.width),SCREEN_HEIGHT))
             self.image = pygame.transform.rotate(self.image, -90)
             self.speed=[0,-1]
-        elif(self.direction==MOVE_E):
+        elif(self.direction==EAST):
             self.rect=self.rect.move((0-self.rect.width,random.random()*(SCREEN_HEIGHT-self.rect.width)))
             self.image = pygame.transform.flip(self.image, True, False)
             self.speed=[+1,0]
-        elif(self.direction==MOVE_S):
+        elif(self.direction==SOUTH):
             self.rect=self.rect.move((random.random()*(SCREEN_WIDTH-self.rect.width), 25-self.rect.width))
             self.image = pygame.transform.rotate(self.image, 90)
             self.speed=[0,+1]
-        elif(self.direction==MOVE_W):
+        elif(self.direction==WEST):
             self.rect=self.rect.move((SCREEN_WIDTH, random.random()*(SCREEN_HEIGHT-self.rect.width)))
             self.speed=[-1,0]
             
     def update(self):
-        if self.direction==MOVE_S:
+        if self.direction==SOUTH:
             if self.i<(len(self.zombie_anim_s)-1): self.i+=1
             else: self.i=0
             self.image=pygame.image.load(self.zombie_anim_s[self.i]).convert_alpha()
-        if self.direction==MOVE_W:
+        if self.direction==WEST:
             if self.i<(len(self.zombie_anim_w)-1): self.i+=1
             else: self.i=0
             self.image=pygame.image.load(self.zombie_anim_w[self.i]).convert_alpha()
-        if self.direction==MOVE_E:
+        if self.direction==EAST:
             if self.i<(len(self.zombie_anim_w)-1): self.i+=1
             else: self.i=0
             self.image=pygame.image.load(self.zombie_anim_w[self.i]).convert_alpha()
             self.image = pygame.transform.flip(self.image, True, False)
-        if self.direction==MOVE_N:
+        if self.direction==NORTH:
             if self.i<(len(self.zombie_anim_n)-1): self.i+=1
             else: self.i=0
             self.image=pygame.image.load(self.zombie_anim_n[self.i]).convert_alpha()

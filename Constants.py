@@ -22,27 +22,16 @@ GAME_OVER='game over'
 
 #Daddy states
 STAND='stand'
-STAND_N='stand north'
-STAND_E='stand east'
-STAND_S='stand south'
-STAND_W='stand west'
-WALK_N='walk north'
-WALK_E='walk east'
-WALK_S='walk south'
-WALK_W='walk west'
+WALK='walk'
 
 #Baby states
 SLEEP = 'sleep'
 HUNGRY = 'hungry'
 DIAPER_FULL = 'diaper full'
+IDLE = 'idle'
+CRYING = 'crying'
 
-#Enemy states
-MOVE_N='move north'
-MOVE_E='move east'
-MOVE_S='move south'
-MOVE_W='move west'
-
-#Direction states (projectiles)
+#Direction states
 NORTH='north'
 EAST='east'
 SOUTH='south'
