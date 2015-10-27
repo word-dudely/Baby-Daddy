@@ -15,7 +15,7 @@ class Enemy(pygame.sprite.Sprite):
         pygame.init()
         pygame.sprite.Sprite.__init__(self)
         
-        self.image = pygame.image.load('images/pvzZombie.png').convert_alpha()
+        self.image = pygame.image.load('images/zombie/zombie_s01.png').convert_alpha()
         self.rect = self.image.get_rect()
         
         self.speed = [0,0]

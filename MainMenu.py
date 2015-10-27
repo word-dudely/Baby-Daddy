@@ -29,11 +29,11 @@ class MainMenu(pygame.sprite.Sprite):
         self.textControls2_shadow = self.font.render(CONTROLS2, True, BLACK)
         self.textControls2_shadow_rect = self.textControls2_shadow.get_rect()
         
-        self.logo = pygame.image.load('images/logo.png').convert_alpha()
+        self.logo = pygame.image.load('images/menu/logo.png').convert_alpha()
         self.logo_rect = self.logo.get_rect()
         self.logo_rect.midtop = self.rect.midtop
         
-        self.logo_anim=['images/logo_01.png','images/logo_02.png','images/logo_03.png','images/logo_04.png','images/logo_05.png','images/logo_06.png','images/logo_07.png']
+        self.logo_anim=['images/menu/logo_01.png','images/menu/logo_02.png','images/menu/logo_03.png','images/menu/logo_04.png','images/menu/logo_05.png','images/menu/logo_06.png','images/menu/logo_07.png']
         
         self.textControls1_rect.midtop = self.logo_rect.midbottom
         self.textControls1_rect=self.textControls1_rect.move(0,-3)
@@ -45,9 +45,9 @@ class MainMenu(pygame.sprite.Sprite):
         self.textControls2_shadow_rect=self.textControls2_shadow_rect.move(-1,+1)
         
         
-        self.startBtn = pygame.image.load('images/startBtn.png').convert_alpha()
+        self.startBtn = pygame.image.load('images/menu/startBtn.png').convert_alpha()
         self.startBtn_rect = self.startBtn.get_rect()
-        self.exitBtn = pygame.image.load('images/exitBtn.png').convert_alpha()
+        self.exitBtn = pygame.image.load('images/menu/exitBtn.png').convert_alpha()
         self.exitBtn_rect = self.exitBtn.get_rect()
         self.startBtn_rect.midbottom = self.rect.midbottom
         self.startBtn_rect = self.startBtn_rect.move(-150,-10)
