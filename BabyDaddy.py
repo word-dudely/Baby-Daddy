@@ -124,7 +124,7 @@ def main():
                     pygame.mixer.music.set_volume(tempSndState)
                     gameState=stateCache
                     pauseContainer.empty()
-                    pauseContainer.draw(screen_surface)
+                    spriteContainer.draw(screen_surface)
                     screen.blit(screen_surface, (0,0))
                     pygame.display.flip()
             if event.type == QUIT:
