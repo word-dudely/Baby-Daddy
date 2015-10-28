@@ -10,7 +10,7 @@ from DynamicTexts import *
 class GameScene(pygame.sprite.Sprite):
     """
     The main game scene and logic.
-    Returns: game scene
+    Returns: GameScene object
     Functions: startGame, launchEnemy, shootDaddy, update
     Attributes: image, rect, background, HUD, numDP, numDH, numBH, daddy, daddySprite, baby, babySprite, enemyGroup, projectileGroup
     """

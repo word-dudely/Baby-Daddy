@@ -8,7 +8,7 @@ class PauseScreen(pygame.sprite.Sprite):
     PauseScreen sprite.
     Returns: PauseScreen object
     Functions: None at the moment
-    Attributes: image, rect
+    Attributes: image, rect, text
     """
     def __init__(self):
         #Call the parent class (Sprite) constructor

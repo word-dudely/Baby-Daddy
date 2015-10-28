@@ -6,8 +6,8 @@ from DynamicTexts import *
 class GameOver(pygame.sprite.Sprite):
     """
     Game over dude.
-    Returns: game over screen
-    Functions: tbd
+    Returns: GameOver object
+    Functions: None at the moment
     Attributes: image, rect, text
     """
     def __init__(self):

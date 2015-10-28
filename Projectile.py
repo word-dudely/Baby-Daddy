@@ -5,7 +5,7 @@ from Constants import *
 class Projectile(pygame.sprite.Sprite):
     """
     Things shot from Daddy at enemies. Rectangles most likely.
-    Returns: projectile object
+    Returns: Projectile object
     Functions: update
     Attributes: image, rect, direction
     """

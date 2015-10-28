@@ -6,9 +6,9 @@ from Baby import *
 class Daddy(pygame.sprite.Sprite):
     """
     The player's main guy. The Daddy. Arrow keys move at the moment. Punch with the Spacebar.
-    Returns: daddy object
+    Returns: Daddy object
     Functions: moveDaddy
-    Attributes: speed, direction
+    Attributes: speed, state, direction
     """
     def __init__(self):
         #Call the parent class (Sprite) constructor
