@@ -6,6 +6,7 @@ LEVEL_LABEL='Level: '
 TIMER_LABEL='Clock: '
 BABY_HEALTH_LABEL='Baby: '
 DADDY_HEARTS_LABEL='Daddy: '
+PAUSED_TEXT='Paused'
 
 #Controls
 CONTROLS1='Controls:'
