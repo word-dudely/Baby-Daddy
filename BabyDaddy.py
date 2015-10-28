@@ -19,8 +19,9 @@ def main():
     else:screen = pygame.display.set_mode(SCREEN_SIZE, FULLSCREEN)
     pygame.display.set_icon(pygame.image.load(ICON))
     pygame.display.set_caption(TITLE_BAR_TEXT)
+    #repeat keydowns
     pygame.key.set_repeat(40,40)
-    #load the clock for the timerate
+    #load the clock for the framerate
     clock = pygame.time.Clock()
     #set the initial volume based on the constants
     if SOUND_ENABLED:pygame.mixer.music.set_volume(GLOBAL_MUSIC_VOLUME)
@@ -32,6 +33,7 @@ def main():
     gameState=MAIN_MENU
     daddyState=[STAND,SOUTH]
     babyState=IDLE
+    stateCache=MAIN_MENU
     #sprites
     menu=MainMenu()
     game=GameScene()
@@ -91,7 +93,6 @@ def main():
         changeMusic('Sad_Male.ogg')
         pygame.display.flip()
         
-        
     #display soundBtn
     soundBtn.rect.bottomright = screen_surface_rect.bottomright
     soundBtn.rect=soundBtn.rect.move(-15,-15)
@@ -101,7 +102,19 @@ def main():
     
     #state machine/infinite loop. This may get messy...
     while True:
+        #set the framerate
+        clock.tick(60)
         for event in pygame.event.get():
+            if event.type == ACTIVEEVENT:
+                #if game is out of focus or minimized, pause
+                if (event.state==2) | ((event.state==6) & (event.gain==0)):
+                    tempSndState=pygame.mixer.music.get_volume()
+                    gameState=PAUSED
+                    pygame.mixer.music.set_volume(0)
+                #back in the game
+                elif (event.state==6)&(event.gain==1):
+                    pygame.mixer.music.set_volume(tempSndState)
+                    gameState=stateCache
             if event.type == QUIT:
                 sys.exit(0)
             if event.type == MOUSEBUTTONDOWN:
@@ -112,12 +125,12 @@ def main():
                 x,y = event.pos
                 if menu.startBtn_rect.collidepoint(x,y):
                     startGame()
-                    gameState=GAME_ON
+                    gameState=stateCache=GAME_ON
                 if menu.exitBtn_rect.collidepoint(x,y):
                     sys.exit(0)
             if ((event.type == MOUSEBUTTONDOWN) & (gameState==GAME_OVER)):
                 createMenu()
-                gameState=MAIN_MENU
+                gameState=stateCache=MAIN_MENU
             if ((event.type == KEYDOWN) & (gameState==GAME_ON)):
                 if (event.key == K_RIGHT) | (event.key == K_d):
                     daddyState = [WALK,EAST]
@@ -133,7 +146,7 @@ def main():
                     game.shootDaddy()
                 if event.key == K_ESCAPE: 
                     createMenu()
-                    gameState=MAIN_MENU
+                    gameState=stateCache=MAIN_MENU
                 else:
                     daddyState[0] = STAND
                     game.daddy.moveDaddy(daddyState, game.baby.rect)
@@ -154,8 +167,7 @@ def main():
             pygame.display.flip()
             if ((game.numDH==0) | (game.numBH<=0)):
                 createGameOver()
-                gameState=GAME_OVER
-        clock.tick(60)
+                gameState=stateCache=GAME_OVER
         
 
             
