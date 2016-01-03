@@ -13,6 +13,8 @@ from PauseScreen import *
 
 global gameState, daddyState
 
+#test comment
+
 def main():
     #window stuff
     pygame.init()
