@@ -1,0 +1,9 @@
+to do:
+
+1. animate baby
+2. save config on exit
+3. increase difficulty as time passes (speed up and increase frequency of enemies)
+4. limit bottles, add as random powerup
+5. add bomb all enemies on the corners
+6. add punch for close up attacks (and when out of bottles)
+7. highscores/names (global)
