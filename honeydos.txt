@@ -1,6 +1,6 @@
 to do:
 
-1. animate baby
+1. animate/redraw baby
 2. save config on exit
 3. increase difficulty as time passes (speed up and increase frequency of enemies)
 4. limit bottles, add as random powerup
