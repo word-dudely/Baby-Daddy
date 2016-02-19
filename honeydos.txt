@@ -1,9 +1,8 @@
 to do:
 
 1. animate/redraw baby
-2. save config on exit
-3. increase difficulty as time passes (speed up and increase frequency of enemies)
-4. limit bottles, add as random powerup
-5. add bomb all enemies on the corners
-6. add punch for close up attacks (and when out of bottles)
-7. highscores/names (global)
+2. increase difficulty as time passes (speed up and increase frequency of enemies)
+3. limit bottles, add as random powerup
+4. add bomb all enemies on the corners
+5. add punch for close up attacks (and when out of bottles)
+6. highscores/names (global)

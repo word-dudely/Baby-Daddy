@@ -10,6 +10,7 @@ from GameScene import *
 from SoundBtn import *
 from GameOver import *
 from PauseScreen import *
+from Config import *
 
 global gameState, daddyState
 
@@ -59,6 +60,7 @@ def main():
         soundBtnContainer.draw(screen_surface) 
         screen.blit(screen_surface, (0,0))
         pygame.display.flip()
+        writeConfig()
 
     def changeMusic(newTrack, volume=GLOBAL_MUSIC_VOLUME):
         soundOn=pygame.mixer.music.get_volume()
@@ -102,6 +104,12 @@ def main():
     soundBtnContainer=pygame.sprite.GroupSingle(soundBtn)  
     #display menu
     createMenu()
+    
+    def writeConfig():
+        #print(pygame.mixer.music.get_volume()==GLOBAL_MUSIC_VOLUME)
+        f=open('Config.py', 'w')
+        f.write('#sound\nSOUND_ENABLED='+str(pygame.mixer.music.get_volume()==GLOBAL_MUSIC_VOLUME))
+        f.close()
     
     #state machine/infinite loop. This may get messy...
     while True:
