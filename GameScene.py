@@ -12,7 +12,7 @@ class GameScene(pygame.sprite.Sprite):
     The main game scene and logic.
     Returns: GameScene object
     Functions: startGame, launchEnemy, shootDaddy, update
-    Attributes: image, rect, background, HUD, numDP, numDH, numBH, daddy, daddySprite, baby, babySprite, enemyGroup, projectileGroup
+    Attributes: image, rect, background, HUD, numDP, numDH, numBH, numProj, daddy, daddySprite, baby, babySprite, enemyGroup, projectileGroup
     """
     def __init__(self):
         #Call the parent class (Sprite) constructor
@@ -24,6 +24,7 @@ class GameScene(pygame.sprite.Sprite):
         self.heartString='♥♥♥'
         self.numBH=5
         self.babyHealthString='▓▓▓▓▓▓'
+        self.numProj=10
         
         self.background = pygame.image.load('images/hardwoodFloor.jpg').convert()
         self.background_rect=self.background.get_rect()
@@ -47,6 +48,10 @@ class GameScene(pygame.sprite.Sprite):
         self.textDH_rect = self.textDH.get_rect()
         self.textDH_rect.topleft = self.rect.topleft
         self.textDH_rect=self.textDH_rect.move(+2,+2)
+        self.textProj = self.font.render(PROJECTILES_LABEL+str(self.numProj), True, BLACK, WHITE)
+        self.textProj_rect = self.textProj.get_rect()
+        self.textProj_rect.midleft = self.textDH_rect.midright
+        self.textProj_rect = self.textProj_rect.move(+50,+0)
         self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, PINK, WHITE)
         self.textBH_rect = self.textBH.get_rect()
         self.textBH_rect.topright = self.rect.topright
@@ -56,6 +61,7 @@ class GameScene(pygame.sprite.Sprite):
         self.image.blit(self.HUD, self.HUD_rect)
         self.image.blit(self.textDP, self.textDP_rect)
         self.image.blit(self.textDH, self.textDH_rect)
+        self.image.blit(self.textProj, self.textProj_rect)
         self.image.blit(self.textBH, self.textBH_rect)
         
         #sounds
@@ -71,6 +77,7 @@ class GameScene(pygame.sprite.Sprite):
         self.heartString='♥♥♥'
         self.numBH=5
         self.babyHealthString='▓▓▓▓▓▓'
+        self.numProj=10
         self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, PINK, WHITE)
         #daddy 
         self.daddy=Daddy()
@@ -98,10 +105,12 @@ class GameScene(pygame.sprite.Sprite):
         self.enemyGroup.draw(self.image)
       
     def shootDaddy(self):
-        if pygame.mixer.music.get_volume():pygame.mixer.Sound.play(self.whoosh)
-        self.projectile=Projectile(self.daddy.direction, self.daddy.rect)
-        self.projectileGroup.add(self.projectile)
-        self.projectileGroup.draw(self.image)
+        if self.numProj>0:
+            if pygame.mixer.music.get_volume():pygame.mixer.Sound.play(self.whoosh)
+            self.projectile=Projectile(self.daddy.direction, self.daddy.rect)
+            self.projectileGroup.add(self.projectile)
+            self.projectileGroup.draw(self.image)
+            self.numProj-=1
     
     def daddyDown(self):
         if pygame.mixer.music.get_volume():pygame.mixer.Sound.play(self.daddyDies)
@@ -130,6 +139,7 @@ class GameScene(pygame.sprite.Sprite):
         #update the HUD
         self.textDP = self.font.render(DADDY_POINTS_LABEL+str(self.numDP), True, BLACK, WHITE)
         self.textDH = self.font.render(DADDY_HEARTS_LABEL+self.heartString, True, PINK, WHITE)
+        self.textProj = self.font.render(PROJECTILES_LABEL+str(self.numProj), True, BLACK, WHITE)
         #redraw the scene
         self.image.blit(self.background, self.background_rect)
         self.daddySprite.draw(self.image)
@@ -165,4 +175,5 @@ class GameScene(pygame.sprite.Sprite):
         self.image.blit(self.HUD, self.HUD_rect)
         self.image.blit(self.textDP, self.textDP_rect)
         self.image.blit(self.textDH, self.textDH_rect)
+        self.image.blit(self.textProj, self.textProj_rect)
         self.image.blit(self.textBH, self.textBH_rect)

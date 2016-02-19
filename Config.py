@@ -1,2 +1,2 @@
 #sound
-SOUND_ENABLED=False
+SOUND_ENABLED=True

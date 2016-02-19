@@ -7,6 +7,7 @@ TIMER_LABEL='Clock: '
 BABY_HEALTH_LABEL='Baby: '
 DADDY_HEARTS_LABEL='Daddy: '
 PAUSED_TEXT='Paused'
+PROJECTILES_LABEL='Bottles: '
 
 #Controls
 CONTROLS1='Controls:'
