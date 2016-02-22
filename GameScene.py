@@ -6,6 +6,7 @@ from Baby import *
 from Enemy import *
 from Projectile import *
 from DynamicTexts import *
+from Items import *
 
 class GameScene(pygame.sprite.Sprite):
     """
@@ -92,6 +93,9 @@ class GameScene(pygame.sprite.Sprite):
             self.baby=Baby()
             self.babySprite.add(self.baby)
             self.babySprite.draw(self.image)
+        #items
+        self.item=Items()
+        self.itemSprite=pygame.sprite.GroupSingle()
         #enemies!
         self.enemyGroup=pygame.sprite.Group()
         #projectiles!
@@ -121,6 +125,7 @@ class GameScene(pygame.sprite.Sprite):
         self.projectileGroup.empty()
         self.numDH-=1
         self.heartString=''
+        self.item.clearItem()
         for i in range(self.numDH):
             self.heartString=self.heartString+'♥'
         self.daddy.rect.center = self.rect.center
@@ -134,6 +139,13 @@ class GameScene(pygame.sprite.Sprite):
             self.babyHealthString=self.babyHealthString+'▓'
         self.textBH = self.font.render(BABY_HEALTH_LABEL+self.babyHealthString, True, PINK, WHITE)
         if pygame.mixer.music.get_volume():pygame.mixer.Sound.play(self.zombieEats)
+    
+    def randomItem(self):
+        self.item=Items()
+        while pygame.sprite.collide_mask(self.item, self.baby):
+            self.item=Items()
+        self.itemSprite=pygame.sprite.GroupSingle(self.item)
+        self.itemSprite.draw(self.image)
 
     def update(self):
         #update the HUD
@@ -144,6 +156,7 @@ class GameScene(pygame.sprite.Sprite):
         self.image.blit(self.background, self.background_rect)
         self.daddySprite.draw(self.image)
         self.babySprite.draw(self.image)
+        self.itemSprite.draw(self.image)
         #enemies
         for enemies in iter(self.enemyGroup):
             if ((enemies.rect.left > SCREEN_WIDTH) | (enemies.rect.right < 0) | (enemies.rect.bottom < 0) | (enemies.rect.top > SCREEN_HEIGHT)):
@@ -170,6 +183,11 @@ class GameScene(pygame.sprite.Sprite):
                 self.projectileGroup.remove(projectiles)
         self.projectileGroup.update()
         self.projectileGroup.draw(self.image)
+        #items
+        if pygame.sprite.collide_mask(self.daddy, self.item):
+            #self.itemSprite.empty()
+            self.item.clearItem()
+            self.numProj+=5
         #self.baby.update()
         self.image.blit(self.HUD_shadow, self.HUD_shadow_rect)
         self.image.blit(self.HUD, self.HUD_rect)

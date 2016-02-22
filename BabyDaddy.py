@@ -88,6 +88,7 @@ def main():
         changeMusic('babyDaddyMainLoop.wav')
         pygame.display.flip()
         pygame.time.set_timer(USEREVENT+1, 1500)
+        pygame.time.set_timer(USEREVENT+2, 10000)
         game.startGame()
     
     def createGameOver():
@@ -95,6 +96,7 @@ def main():
         spriteContainer.draw(screen_surface)
         screen.blit(screen_surface, (0,0))
         pygame.time.set_timer(USEREVENT+1, 0)
+        pygame.time.set_timer(USEREVENT+2, 0)
         changeMusic('Sad_Male.ogg')
         pygame.display.flip()
         
@@ -172,6 +174,8 @@ def main():
                     game.daddy.moveDaddy(daddyState, game.baby.rect)
             if ((event.type==USEREVENT+1)&(gameState==GAME_ON)):
                 game.launchEnemy()
+            if ((event.type==USEREVENT+2)&(gameState==GAME_ON)):
+                game.randomItem()
         if gameState==MAIN_MENU:
             pygame.time.delay(200)
             menu.update()
