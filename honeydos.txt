@@ -2,6 +2,7 @@ to do:
 
 1. animate/redraw baby
 2. increase difficulty as time passes (speed up and increase frequency of enemies)
-3. add bomb all enemies on the corners
-4. add punch for close up attacks (and when out of bottles)
-5. highscores/names (global)
+3. replace projectiles with diapers (dirty/wet)
+4. add bomb all enemies on the corners
+5. add punch for close up attacks (and when out of bottles)
+6. highscores/names (global)
