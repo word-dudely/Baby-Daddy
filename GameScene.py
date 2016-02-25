@@ -94,8 +94,8 @@ class GameScene(pygame.sprite.Sprite):
             self.babySprite.add(self.baby)
             self.babySprite.draw(self.image)
         #items
-        self.item=Items()
-        self.itemSprite=pygame.sprite.GroupSingle()
+        self.item=Items(EMPTY)
+        self.itemSprite=pygame.sprite.GroupSingle(self.item)
         #enemies!
         self.enemyGroup=pygame.sprite.Group()
         #projectiles!
@@ -125,7 +125,8 @@ class GameScene(pygame.sprite.Sprite):
         self.projectileGroup.empty()
         self.numDH-=1
         self.heartString=''
-        self.item.clearItem()
+        self.item=Items(EMPTY)
+        self.itemSprite=pygame.sprite.GroupSingle(self.item)
         for i in range(self.numDH):
             self.heartString=self.heartString+'♥'
         self.daddy.rect.center = self.rect.center
@@ -141,9 +142,9 @@ class GameScene(pygame.sprite.Sprite):
         if pygame.mixer.music.get_volume():pygame.mixer.Sound.play(self.zombieEats)
     
     def randomItem(self):
-        self.item=Items()
+        self.item=Items(BOTTLE)
         while pygame.sprite.collide_mask(self.item, self.baby):
-            self.item=Items()
+            self.item=Items(BOTTLE)
         self.itemSprite=pygame.sprite.GroupSingle(self.item)
         self.itemSprite.draw(self.image)
 
@@ -186,7 +187,8 @@ class GameScene(pygame.sprite.Sprite):
         #items
         if pygame.sprite.collide_mask(self.daddy, self.item):
             #self.itemSprite.empty()
-            self.item.clearItem()
+            self.item=Items(EMPTY)
+            self.itemSprite=pygame.sprite.GroupSingle(self.item)
             self.numProj+=5
         #self.baby.update()
         self.image.blit(self.HUD_shadow, self.HUD_shadow_rect)

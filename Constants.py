@@ -23,6 +23,12 @@ GAME_OVER='game over'
 STAND='stand'
 WALK='walk'
 
+#item states
+EMPTY='empty'
+BOTTLE='bottle'
+DIAPER='diaper'
+HEALTH='health'
+
 #Baby states
 SLEEP = 'sleep'
 HUNGRY = 'hungry'
