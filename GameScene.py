@@ -143,7 +143,8 @@ class GameScene(pygame.sprite.Sprite):
     
     def randomItem(self):
         self.item=Items(BOTTLE)
-        while pygame.sprite.collide_mask(self.item, self.baby):
+        #while pygame.sprite.collide_mask(self.item, self.baby):
+        while pygame.Rect.colliderect(self.item.rect, self.baby.rect):
             self.item=Items(BOTTLE)
         self.itemSprite=pygame.sprite.GroupSingle(self.item)
         self.itemSprite.draw(self.image)
