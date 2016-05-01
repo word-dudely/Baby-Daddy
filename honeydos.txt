@@ -1,7 +1,9 @@
 to do:
 
 1. animate/redraw baby
-2. increase difficulty as time passes (speed up and increase frequency of enemies)
-3. add bomb all enemies on the corners (random powerup)
-4. add punch for close up attacks (and when out of bottles)
-5. highscores/names (global)
+2. change enemy spawing to hordes
+3. add levels
+4. add bomb all enemies on the corners (random powerup)
+5. add punch for close up attacks (and when out of bottles)
+6. highscores/names (global)
+7. add free-to-play mechanics
