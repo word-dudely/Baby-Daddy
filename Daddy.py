@@ -5,7 +5,7 @@ from Baby import *
 
 class Daddy(pygame.sprite.Sprite):
     """
-    The player's main guy. The Daddy. Arrow keys move at the moment. Punch with the Spacebar.
+    The player's main guy. The Daddy. Arrow/WASD keys move at the moment. Punch with the Spacebar.
     Returns: Daddy object
     Functions: moveDaddy
     Attributes: speed, state, direction
@@ -64,6 +64,43 @@ class Daddy(pygame.sprite.Sprite):
                     self.i+=1
                 else:
                     self.i=0
+        if ((state == [WALK,NORTHEAST]) & (self.rect.top > 25) & (self.rect.right < SCREEN_WIDTH)):
+            if (((self.rect.bottom - self.speed < baby_rect.top) | (self.rect.top - self.speed > baby_rect.bottom)) | ((self.rect.left > baby_rect.right) | (self.rect.right < baby_rect.left))):
+                self.rect.top -= self.speed/1.25
+                self.rect.left += self.speed/1.25
+                if (self.i<len(self.walk_n_anim)):
+                    self.image = pygame.image.load(self.walk_n_anim[self.i]).convert_alpha()
+                    self.i+=1
+                else:
+                    self.i=0  
+        if ((state == [WALK,NORTHWEST]) & (self.rect.top > 25) & (self.rect.left > 0)):
+            if (((self.rect.bottom - self.speed < baby_rect.top) | (self.rect.top - self.speed > baby_rect.bottom)) | ((self.rect.left > baby_rect.right) | (self.rect.right < baby_rect.left))):
+                self.rect.top -= self.speed/1.25
+                self.rect.left -= self.speed/1.25
+                if (self.i<len(self.walk_n_anim)):
+                    self.image = pygame.image.load(self.walk_n_anim[self.i]).convert_alpha()
+                    self.i+=1
+                else:
+                    self.i=0
+        if ((state == [WALK,SOUTHEAST]) & (self.rect.bottom < SCREEN_HEIGHT) & (self.rect.right < SCREEN_WIDTH)):
+            if (((self.rect.left > baby_rect.right) | (self.rect.right < baby_rect.left)) | ((self.rect.bottom + self.speed < baby_rect.top) | (self.rect.top + self.speed > baby_rect.bottom))):
+                self.rect.top += self.speed/1.25
+                self.rect.left += self.speed/1.25
+                if (self.i<len(self.walk_s_anim)):
+                    self.image = pygame.image.load(self.walk_s_anim[self.i]).convert_alpha()
+                    self.i+=1
+                else:
+                    self.i=0
+        if ((state == [WALK,SOUTHWEST]) & (self.rect.bottom < SCREEN_HEIGHT) & (self.rect.left > 0)):
+            if (((self.rect.left > baby_rect.right) | (self.rect.right < baby_rect.left)) | ((self.rect.bottom + self.speed < baby_rect.top) | (self.rect.top + self.speed > baby_rect.bottom))):
+                self.rect.top += self.speed/1.25
+                self.rect.left -= self.speed/1.25
+                if (self.i<len(self.walk_s_anim)):
+                    self.image = pygame.image.load(self.walk_s_anim[self.i]).convert_alpha()
+                    self.i+=1
+                else:
+                    self.i=0
+                    
         if (state[0] == STAND):
             if state[1]==NORTH:self.image=pygame.image.load('images/daddy/daddy_n06.png').convert_alpha()
             if state[1]==EAST:self.image=pygame.image.load('images/daddy/daddy_e04.png').convert_alpha()

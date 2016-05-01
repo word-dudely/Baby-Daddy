@@ -154,14 +154,23 @@ def main():
                 createMenu()
                 gameState=MAIN_MENU
             if ((event.type == KEYDOWN) & (gameState==GAME_ON)):
-                if (event.key == K_RIGHT) | (event.key == K_d):
+                keys=pygame.key.get_pressed()
+                if (keys[K_RIGHT] | keys[K_d]):
                     daddyState = [WALK,EAST]
-                if (event.key == K_DOWN) | (event.key == K_s):
+                if (keys[K_DOWN] | keys[K_s]):
                     daddyState = [WALK,SOUTH]
-                if (event.key == K_LEFT) | (event.key == K_a):
+                if (keys[K_LEFT] | keys[K_a]):
                     daddyState = [WALK,WEST]
-                if (event.key == K_UP) | (event.key == K_w):
+                if (keys[K_UP] | keys[K_w]):
                     daddyState = [WALK,NORTH]
+                if ((keys[K_UP] & keys[K_RIGHT]) | (keys[K_w] & keys[K_d])):
+                    daddyState = [WALK,NORTHEAST]
+                if ((keys[K_UP] & keys[K_LEFT]) | (keys[K_w] & keys[K_a])):
+                    daddyState = [WALK,NORTHWEST]
+                if ((keys[K_DOWN] & keys[K_RIGHT]) | (keys[K_s] & keys[K_d])):
+                    daddyState = [WALK,SOUTHEAST]
+                if ((keys[K_DOWN] & keys[K_LEFT]) | (keys[K_s] & keys[K_a])):
+                    daddyState = [WALK, SOUTHWEST]
                 game.daddy.moveDaddy(daddyState, game.baby.rect)
             if ((event.type == KEYUP) & (gameState==GAME_ON)):
                 if event.key == K_SPACE:
@@ -171,6 +180,8 @@ def main():
                     gameState=MAIN_MENU
                 else:
                     daddyState[0] = STAND
+                    if (daddyState[1]==NORTHEAST) | (daddyState[1]==NORTHWEST): daddyState[1]=NORTH
+                    if (daddyState[1]==SOUTHEAST) | (daddyState[1]==SOUTHWEST): daddyState[1]=SOUTH
                     game.daddy.moveDaddy(daddyState, game.baby.rect)
             if ((event.type==USEREVENT+1)&(gameState==GAME_ON)):
                 game.launchEnemy()
